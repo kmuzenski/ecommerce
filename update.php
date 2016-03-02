@@ -1,19 +1,9 @@
 <?php
-    require('database.php');
-
-	 $id = null;
+    require_once('database.php');
+    require_once('session.php');
       
-      if ( !empty($_POST['id'])) {
-      $id = $_REQUEST['id'];
-   	 }
-
-    if ( null==$id ) {
-     // header("Location: index.php");
-    }
-  	
-    
-
-
+	 $id = $_SESSION['id'];
+  
 	if ( !empty($_POST)) {
         // keep track validation errors
         $usernameError = null;
@@ -27,6 +17,7 @@
 
         // validate input
         $valid = true;
+
         if (empty($username)) {
             $usernameError = 'Please enter username';
             $valid = false;
