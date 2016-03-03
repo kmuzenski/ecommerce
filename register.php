@@ -1,3 +1,6 @@
+<?php require_once('session.php'); ?>
+
+
 <?php
 
          require 'database.php';

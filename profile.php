@@ -7,7 +7,6 @@ require_once('session.php');
 <title>Your Profile Page</title>
 <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 </head>
-    <li><a href=logout.php">Logout</a></li>
 <body>
 <?php require_once('nav.php'); ?>
 <br><br><br><br><br><br>

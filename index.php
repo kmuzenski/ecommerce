@@ -1,3 +1,6 @@
+<?php require_once('session.php'); ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +18,20 @@
 <h1>Home Page</h1>
 <br><br><br><br>
 
-<p><a href="logout.php">Logout</a></p> 
+<div>
+<?php
+          if ($loggedin) {
+            echo "You are logged in.";
+            echo '<form method="POST" action="update.php">';
+            echo '<input type="submit" value="Update User Info">';
+            echo '</form>';
+          
+          } else {
+            echo "You are logged out.";
+          }
+        ?>
+
+</div>
 <br><br><br><br><br>
 
 
