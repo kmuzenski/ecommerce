@@ -64,6 +64,65 @@
         </tbody>
       </table>
     </div>
+</div>
+
+
+
+ <p><a href="createAddress.php">create an address</a></p>
+<div class="container">
+    <div class="row">
+      <h3>Address</h3>
+    </div>
+
+
+
+    <div class="row">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>street</th>
+            <th>city</th>
+            <th>zip</th>
+	    <th>state</th>
+  	    <th>country</th>
+	    <th>Action</th>
+            <th>Action</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          if($loggedin) {
+              $pdo = Database::connect();
+              $id = $_SESSION['id'];
+              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $sql = 'SELECT * FROM address WHERE id = (SELECT address_fk FROM user_address WHERE user_fk = ?)';
+              $q = $pdo->prepare($sql);
+              $q->execute(array($_SESSION['id']));
+              $query = $q->fetch(PDO::FETCH_ASSOC);
+                echo '<tr>';
+                echo '<form method="POST" action="addressUpdate.php">';
+                echo '<input type="hidden" name="id" value="' . $query['id'] . '">';
+               echo '<td><input type="text" name="street" value="'.$query['street'].'"></td>';
+            echo '<td><input type="text" name="city" value="'.$query['city'].'"></td>';
+                echo '<td><input type="text" name="zip" value="'.$query['zip'].'"></td>';
+		echo '<td><input type="text" name="state" value="'.$query['state'].'"></td>';
+		echo '<td><input type="text" name="country" value="'.$query['country'].'"></td>';
+                echo '<td><input type="submit" value="Update"></td>';
+                echo '</form>';
+                echo '<form method="POST" action="addressDelete.php">';
+                echo '<input type="hidden" name="id" value="' . $query['id'] . '">';
+                echo '<td><input type="submit" value="Delete"></td>';
+                echo '</form>';
+                echo '</tr>';
+          }
+
+          Database::disconnect();
+              //print_r($query);
+          ?>
+        </tbody>
+      </table>
+    </div>
 
 
 
