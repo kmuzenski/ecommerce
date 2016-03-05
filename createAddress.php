@@ -52,11 +52,11 @@ require_once('database.php');
           $q->execute(array($street,$city,$state,$zip,$country));
 	 
 	  $addressID = $pdo->lastInsertId();
-	  echo "$addressID";
+	  
           $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO user_address (user_FK,address_FK) values(?,?)";
+          $sql = "INSERT INTO user_address (address_FK,user_FK) values(?,?)";
           $q = $pdo->prepare($sql);
-          $q->execute(array($addressID, $_SESSION['id']));
+          $q->execute(array($addressID, $_SESSION['uid']));
           Database::disconnect();
 	 header("Location: update.php");
         }
