@@ -87,7 +87,6 @@
   	    <th>country</th>
 	    <th>Action</th>
             <th>Action</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -96,34 +95,41 @@
               $pdo = Database::connect();
               $id = $_SESSION['id'];
               $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = 'SELECT * FROM address WHERE id = (SELECT address_fk FROM user_address WHERE user_fk = ?)';
+              $sql = 'SELECT * FROM address WHERE id IN (SELECT address_fk FROM user_address WHERE user_fk = ?)';
               $q = $pdo->prepare($sql);
-              $q->execute(array($_SESSION['id']));
-              $query = $q->fetch(PDO::FETCH_ASSOC);
-                echo '<tr>';
+              $q->execute(array($id));
+              $query = $q->fetchAll(PDO::FETCH_ASSOC);
+                
+
+	foreach ($query as $row) {
+
+
+		echo '<tr>';
                 echo '<form method="POST" action="addressUpdate.php">';
-                echo '<input type="hidden" name="id" value="' . $query['id'] . '">';
-               echo '<td><input type="text" name="street" value="'.$query['street'].'"></td>';
-            echo '<td><input type="text" name="city" value="'.$query['city'].'"></td>';
-                echo '<td><input type="text" name="zip" value="'.$query['zip'].'"></td>';
-		echo '<td><input type="text" name="state" value="'.$query['state'].'"></td>';
-		echo '<td><input type="text" name="country" value="'.$query['country'].'"></td>';
+                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+               echo '<td><input type="text" name="street" value="'.$row['street'].'"></td>';
+            echo '<td><input type="text" name="city" value="'.$row['city'].'"></td>';
+                echo '<td><input type="text" name="zip" value="'.$row['zip'].'"></td>';
+		echo '<td><input type="text" name="state" value="'.$row['state'].'"></td>';
+		echo '<td><input type="text" name="country" value="'.$row['country'].'"></td>';
                 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="addressDelete.php">';
-                echo '<input type="hidden" name="id" value="' . $query['id'] . '">';
+                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
                 echo '<td><input type="submit" value="Delete"></td>';
                 echo '</form>';
                 echo '</tr>';
           }
+	}
 
           Database::disconnect();
               //print_r($query);
-          ?>
+   ?>
+
         </tbody>
       </table>
     </div>
-
+   </div>
 
 
 

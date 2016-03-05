@@ -50,20 +50,22 @@ require_once('database.php');
           $sql = "INSERT INTO address (street,city,state,zip,country) values(?, ?, ?, ?, ?)";
           $q = $pdo->prepare($sql);
           $q->execute(array($street,$city,$state,$zip,$country));
-          $addressID = $pdo->lastInsertId();
+	 
+	  $addressID = $pdo->lastInsertId();
+	  echo "$addressID";
           $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $sql = "INSERT INTO user_address (user_FK,address_FK) values(?,?)";
           $q = $pdo->prepare($sql);
           $q->execute(array($addressID, $_SESSION['id']));
-          //$query = $q->fetch(PDO::FETCH_ASSOC);
           Database::disconnect();
-          header("Location: update.php");
-        } catch (PDOException $e) {
+	 header("Location: update.php");
+        }
+	 catch (PDOException $e) {
           echo $e->getMessage();
         }
       }
-    
-	}
+   } 
+	
 ?>
 
 
@@ -77,8 +79,7 @@ require_once('database.php');
  </head>
   
   <body>
-    <?php require_once('nav.php');?>
-
+<br><br><br><br><br><br>
 
     <div class="container">
       <div class="span10 offset1">
@@ -140,7 +141,6 @@ require_once('database.php');
                         
           <div class="form-actions">
             <button type="submit" class="btn btn-success">Add Address</button>
-            <!-- no longer need a button to go back as this is the page being updated   <a class="btn" href="index.php">Back</a>   -->
           </div>
         </form>
       </div>
