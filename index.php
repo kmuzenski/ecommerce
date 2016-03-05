@@ -23,8 +23,9 @@
           if ($loggedin) {
             echo "You are logged in.";
             echo '<form method="POST" action="update.php">';
-            echo '<input type="submit" value="Update User Info">';
+            echo '<input type="submit" value="update">';
             echo '</form>';
+	    echo '<a href="logout.php">logout</a>';
           
           } else {
             echo "You are logged out.";
