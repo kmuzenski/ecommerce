@@ -19,9 +19,17 @@
       }
       $pdo = Database::connect();
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "UPDATE address SET street = ?, city = ?, zip = ?, state = ?, country = ? WHERE id = ?";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($street,$city,$zip,$state,$country,$id));
-      Database::disconnect();
-      header("Location: update.php");
+      $sql ="UPDATE address SET street = ?, city = ?, zip = ?, state = ?, country = ? WHERE id = ?";
+     $q = $pdo->prepare($sql);
+     $q->execute(array($street,$city,$zip,$state,$country,$id));
+ 	$query = $q->fetchAll(PDO::FETCH_ASSOC);    
+
+	 Database::disconnect();
+     
+
+
+	 echo"query = ."$query ."<br>";
+     // header("Location: update.php");
     }
+
+

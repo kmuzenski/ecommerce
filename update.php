@@ -93,7 +93,7 @@
           <?php
           if($loggedin) {
               $pdo = Database::connect();
-              $id = $_SESSION['id'];
+              $id = $_SESSION['uid'];
               $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
               $sql = 'SELECT * FROM address WHERE id IN (SELECT address_fk FROM user_address WHERE user_fk = ?)';
               $q = $pdo->prepare($sql);
@@ -106,7 +106,7 @@
 
 		echo '<tr>';
                 echo '<form method="POST" action="addressUpdate.php">';
-                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                echo '<input type="hidden" name="id" value="' . $row['uid'] . '">';
                echo '<td><input type="text" name="street" value="'.$row['street'].'"></td>';
             echo '<td><input type="text" name="city" value="'.$row['city'].'"></td>';
                 echo '<td><input type="text" name="zip" value="'.$row['zip'].'"></td>';
@@ -115,7 +115,7 @@
                 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="addressDelete.php">';
-                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                echo '<input type="hidden" name="id" value="' . $row['uid'] . '">';
                 echo '<td><input type="submit" value="Delete"></td>';
                 echo '</form>';
                 echo '</tr>';

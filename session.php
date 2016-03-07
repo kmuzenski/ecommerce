@@ -4,7 +4,7 @@
 session_start();
 
 $loggedin = false;
-if (!empty($_SESSION['username'])) {
+if (!empty($_SESSION['uid'])) {
 	$loggedin = true;
 }
 ?>

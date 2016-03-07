@@ -7,15 +7,15 @@ require_once('database.php');
         // keep track validation errors
       $streetError = null;
       $cityError = null;
-      $stateError = null;
       $zipError = null;
+      $stateError = null;
       $countryError = null;
          
         // keep track post values
       $street = $_POST['street'];
       $city = $_POST['city'];
-      $state = $_POST['state'];
       $zip = $_POST['zip'];
+      $state = $_POST['state'];
       $country = $_POST['country'];
          
         // validate input
@@ -29,12 +29,12 @@ require_once('database.php');
         $cityError = 'Please enter City';
         $valid = false;
       }
-      if (empty($state)) {
-        $stateError = 'Please enter State';
+      if (empty($zip)) {
+        $zipError = 'Please enter zip';
         $valid = false;
       }
-      if (empty($zip)) {
-        $zipError = 'Please enter Zip Code';
+      if (empty($state)) {
+        $stateError = 'Please enter state';
         $valid = false;
       }
       if (empty($country)) {
@@ -47,12 +47,11 @@ require_once('database.php');
         try {
           $pdo = Database::connect();
           $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO address (street,city,state,zip,country) values(?, ?, ?, ?, ?)";
+          $sql = "INSERT INTO address (street,city,zip,state,country) values(?, ?, ?, ?, ?)";
           $q = $pdo->prepare($sql);
-          $q->execute(array($street,$city,$state,$zip,$country));
+          $q->execute(array($street,$city,$zip,$state,$country));
 	 
 	  $addressID = $pdo->lastInsertId();
-	  
           $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $sql = "INSERT INTO user_address (address_FK,user_FK) values(?,?)";
           $q = $pdo->prepare($sql);
@@ -109,22 +108,22 @@ require_once('database.php');
             </div>
           </div>
 
-          <div class="control-group <?php echo !empty($stateError)?'error':'';?>">
-            <label class="control-label">State</label>
+          <div class="control-group <?php echo !empty($zipError)?'error':'';?>">
+            <label class="control-label">zip</label>
             <div class="controls">
-              <input name="state" type="text" placeholder="State" value="<?php echo !empty($state)?$state:'';?>">
-              <?php if (!empty($stateError)): ?>
-                <span class="help-inline"><?php echo $stateError;?></span>
+              <input name="zip" type="text" placeholder="zip" value="<?php echo !empty($zip)?$zip:'';?>">
+              <?php if (!empty($zipError)): ?>
+                <span class="help-inline"><?php echo $zipError;?></span>
               <?php endif;?>
             </div>
           </div>
 
-          <div class="control-group <?php echo !empty($zipError)?'error':'';?>">
-            <label class="control-label">Zip Code</label>
+          <div class="control-group <?php echo !empty($stateError)?'error':'';?>">
+            <label class="control-label">state</label>
             <div class="controls">
-              <input name="zip" type="text" placeholder="Zip Code" value="<?php echo !empty($zip)?$zip:'';?>">
-              <?php if (!empty($zipError)): ?>
-                <span class="help-inline"><?php echo $zipError;?></span>
+              <input name="state" type="text" placeholder="state" value="<?php echo !empty($state)?$state:'';?>">
+              <?php if (!empty($stateError)): ?>
+                <span class="help-inline"><?php echo $stateError;?></span>
               <?php endif;?>
             </div>
           </div>

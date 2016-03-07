@@ -24,14 +24,14 @@ require_once('database.php');
 
 	$username = $query['username'];
 	$permission = $query['permission'];
-	$uid = $query['uid'];
+	$uid = $query['id'];
 
 	session_start();
 	$_SESSION['username'] = $username;
 	$_SESSION['permission'] = $permission;
-	$_SESSION['uid'] = $uid
+	$_SESSION['uid'] = $uid;
 
-	header('Location: profile.php');
+	header('Location: index.php');
 	
 }
 
