@@ -10,7 +10,9 @@
       $zip = $_POST['zip'];
       $state = $_POST['state'];
       $country = $_POST['country'];
-         
+    
+
+     
       function valid($varname){
         return ( !empty($varname) && isset($varname) );
       }
@@ -22,11 +24,11 @@
       $sql = "UPDATE address SET street = ?, city = ?, zip = ?, state = ?, country = ? WHERE id = ?";
        $q = $pdo->prepare($sql);
        $q->execute(array($street,$city,$zip,$state,$country,$id));
-    echo "id is $id";
-	//print_r($q); 
-	// Database::disconnect();
     
-      // header("Location: update.php");
+	 
+	 Database::disconnect();
+    
+       header("Location: update.php");
 
 
     }
