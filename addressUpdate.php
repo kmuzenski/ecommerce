@@ -5,7 +5,7 @@
     if ( !empty($_POST)) {
       // keep track post values
       $id = $_POST['id'];
-      $street = $_POST['street'];
+     $street = $_POST['street'];
       $city = $_POST['city'];
       $zip = $_POST['zip'];
       $state = $_POST['state'];
@@ -19,17 +19,14 @@
       }
       $pdo = Database::connect();
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql ="UPDATE address SET street = ?, city = ?, zip = ?, state = ?, country = ? WHERE id = ?";
-     $q = $pdo->prepare($sql);
-     $q->execute(array($street,$city,$zip,$state,$country,$id));
- 	$query = $q->fetchAll(PDO::FETCH_ASSOC);    
+      $sql = "UPDATE address SET street = ?, city = ?, zip = ?, state = ?, country = ? WHERE id = ?";
+       $q = $pdo->prepare($sql);
+       $q->execute(array($street,$city,$zip,$state,$country,$id));
+    echo "id is $id";
+	//print_r($q); 
+	// Database::disconnect();
+    
+      // header("Location: update.php");
 
-	 Database::disconnect();
-     
 
-
-	 echo"query = ."$query ."<br>";
-     // header("Location: update.php");
     }
-
-
