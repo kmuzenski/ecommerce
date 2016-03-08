@@ -41,7 +41,7 @@ require_once('session.php');
           <?php
           if($loggedin) {
               $pdo = Database::connect();
-              $id = $_SESSION['id'];
+              $id = $_SESSION['uid'];
               $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
               $sql = 'SELECT * FROM product WHERE id = ?';
               $q = $pdo->prepare($sql);
@@ -57,7 +57,7 @@ require_once('session.php');
                 echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
 	        echo '<td><input type="text" name="description" value="'.$row['description'].'"></td>';
 		echo '<td><input type="text" name="price" value="'.$row['price'].'"></td>';
-                echo '<td><input type="text" name="bin" value="'.$row['bin'].'"></td>';
+                echo '<td><input type="text" name="bin_FK" value="'.$row['bin_FK'].'"></td>';
 		echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="productDelete.php">';

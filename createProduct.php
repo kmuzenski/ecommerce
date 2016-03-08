@@ -8,13 +8,13 @@ require_once('database.php');
       $nameError = null;
       $descriptionError = null;
       $priceError = null;
-      $binError = null;
+      
 
         // keep track post values
       $name = $_POST['name'];
       $description = $_POST['description'];
       $price = $_POST['price'];
-	$bin = $_POST['bin_FK'];
+	
 
         // validate input
       $valid = true;
@@ -32,10 +32,6 @@ require_once('database.php');
         $valid = false;
       }
 
-	if (empty($bin)) {
-	$binError = 'Please enter bin number';
-	$valid = false;
-	}
 
       // insert data
       if ($valid) {
@@ -48,9 +44,9 @@ require_once('database.php');
 
 	 $productID = $pdo->lastInsertId();
 	 
-	 $sql = "INSERT INTO product_bin (product_FK,bin_FK) values(?,?)";
+	 $sql = "INSERT INTO product_bin (product_FK,bin_FK) values(?, ?)";
 	 $q = $pdo->prepare($sql);
-	 $q->execute(array($productID,$bin));
+	 $q->execute(array($productID,$bin_FK));
           Database::disconnect();
          header("Location: admin.php");
         }
@@ -115,12 +111,12 @@ require_once('database.php');
 
 			<label class="control-label">Bin ID</label>
                       
-                        <select name="bin_FK">
+                        <select name="id">
                             <?php
                                 $pdo = Database::connect();
                                 $sql = 'SELECT * FROM bin ORDER BY id DESC';                         
                                    foreach ($pdo->query($sql) as $row) {
-                                            echo '<option name="bin_FK" value="' . $row["id"] . '">' . $row["id"] . '</option>';
+                                            echo '<option name="id" value="' . $row["id"] . '">' . $row["id"] . '</option>';
                                   }
                                    Database::disconnect();
                                   ?>

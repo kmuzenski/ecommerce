@@ -173,7 +173,7 @@
 
 
                 echo '<tr>';
-                echo '<form method="POST" action="creditUpdate.php">';
+                echo '<form method="POST" action="updatePayment.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
                echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
             echo '<td><input type="text" name="number" value="'.$row['number'].'"></td>';
@@ -182,7 +182,7 @@
                 echo '<td><input type="text" name="type" value="'.$row['type'].'"></td>';
                 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
-                echo '<form method="POST" action="creditDelete.php">';
+                echo '<form method="POST" action="deletePayment.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
                 echo '<td><input type="submit" value="Delete"></td>';
                 echo '</form>';
