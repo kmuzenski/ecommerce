@@ -37,17 +37,17 @@
           <?php
           if($loggedin) {
               $pdo = Database::connect();
-              $username = $_SESSION['username'];
+              $id = $_SESSION['uid'];
               $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = 'SELECT * FROM users WHERE username = ?';
+              $sql = 'SELECT * FROM users WHERE id = ?';
               $q = $pdo->prepare($sql);
-              $q->execute(array($username));
+              $q->execute(array($id));
               $query = $q->fetch(PDO::FETCH_ASSOC);
                 echo '<tr>';
                 echo '<form method="POST" action="updateUser.php">';
-                echo '<input type="hidden" name="id" value="' . $query['id'] . '">';
+                echo '<input type="hidden" name="id" value="'.$query['id'].'">';
                echo '<td><input type="text" name="username" value="'.$query['username'].'"></td>'; 
-            echo '<td><input type="text" name="email" value="'.$query['email'].'"></td>';
+                echo '<td><input type="text" name="email" value="'.$query['email'].'"></td>';
                 echo '<td><input type="text" name="password" value="'.$query['password'].'"></td>';
                 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
