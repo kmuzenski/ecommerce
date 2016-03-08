@@ -135,6 +135,72 @@
 
 
 
+
+<p><a href="createPayment.php">create a payment method</a></p>
+<div class="container">
+    <div class="row">
+      <h3>Credit Cards</h3>
+    </div>
+
+
+
+    <div class="row">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>number</th>
+            <th>expiration</th>
+            <th>securitycode</th>
+            <th>type</th>
+            <th>Action</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          if($loggedin) {
+              $pdo = Database::connect();
+              $id = $_SESSION['uid'];
+              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $sql = 'SELECT * FROM creditcard WHERE id IN (SELECT credit_FK FROM user_creditcard WHERE user_FK = ?)';
+              $q = $pdo->prepare($sql);
+              $q->execute(array($id));
+              $query = $q->fetchAll(PDO::FETCH_ASSOC);
+
+
+        foreach ($query as $row) {
+
+
+                echo '<tr>';
+                echo '<form method="POST" action="creditUpdate.php">';
+                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+               echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
+            echo '<td><input type="text" name="number" value="'.$row['number'].'"></td>';
+                echo '<td><input type="text" name="expiration" value="'.$row['expiration'].'"></td>';
+                echo '<td><input type="text" name="securitycode" value="'.$row['securitycode'].'"></td>';
+                echo '<td><input type="text" name="type" value="'.$row['type'].'"></td>';
+                echo '<td><input type="submit" value="Update"></td>';
+                echo '</form>';
+                echo '<form method="POST" action="creditDelete.php">';
+                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                echo '<td><input type="submit" value="Delete"></td>';
+                echo '</form>';
+                echo '</tr>';
+          }
+        }
+        Database::disconnect();
+
+   ?>
+
+        </tbody>
+      </table>
+    </div>
+   </div>
+
+
+
+
 </body>
 
 </html>

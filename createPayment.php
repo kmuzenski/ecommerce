@@ -1,0 +1,176 @@
+<?php
+require_once('session.php');
+error_reporting(E_ALL);
+require_once('database.php');
+
+    if ( !empty($_POST)) {
+        // keep track validation errors
+      $nameError = null;
+      $numberError = null;
+      $expirationError = null;
+      $securitycodeError = null;
+      $typeError = null;
+
+        // keep track post values
+      $name = $_POST['name'];
+      $number = $_POST['number'];
+      $expiration = $_POST['expiration'];
+      $securitycode = $_POST['securitycode'];
+      $type = $_POST['type'];
+      $address_FK = $_POST['address_FK'];
+     
+
+	   // validate input
+      $valid = true;
+
+      if (empty($name)) {
+        $nameError = 'Please enter name';
+        $valid = false;
+      }
+      if (empty($number)) {
+        $numberError = 'Please enter number';
+        $valid = false;
+      }
+      if (empty($expiration)) {
+        $expirationError = 'Please enter exp date';
+        $valid = false;
+      }
+      if (empty($securitycode)) {
+        $securitycodeError = 'Please enter security code';
+        $valid = false;
+      }
+      if (empty($type)) {
+        $typeError = 'Please enter type';
+        $valid = false;
+      }
+
+      // insert data
+      if ($valid) {
+        try {
+          $pdo = Database::connect();
+          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $sql = "INSERT INTO creditcard (name,number,expiration,securitycode,type,address_FK) values(?, ?, ?, ?, ?, ?)";
+          $q = $pdo->prepare($sql);
+          $q->execute(array($name,$number,$expiration,$securitycode,$type,$address_FK));
+
+          $creditID = $pdo->lastInsertId();
+          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          $sql = "INSERT INTO user_creditcard (credit_FK,user_FK) values(?,?)";
+          $q = $pdo->prepare($sql);
+          $q->execute(array($creditID, $_SESSION['uid']));
+          Database::disconnect();
+         header("Location: update.php");
+        }
+         catch (PDOException $e) {
+          echo $e->getMessage();
+        }
+      }
+   }
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+
+
+    <title>create payment mehtod</title>
+ </head>
+
+  <body>
+<br><br><br><br><br><br>
+
+    <div class="container">
+      <div class="span10 offset1">
+        <div class="row">
+          <h3>Please fill out all fields to create a credit card payment method</h3>
+        </div>
+        <form class="form-horizontal" action="createPayment.php" method="post">
+
+          <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
+            <label class="control-label">Name</label>
+            <div class="controls">
+              <input name="name" type="text" placeholder="name" value="<?php echo !empty($name)?$name:'';?>">
+              <?php if (!empty($nameError)): ?>
+                <span class="help-inline"><?php echo $nameError;?></span>
+              <?php endif;?>
+            </div>
+          </div>
+
+
+          <div class="control-group <?php echo !empty($numberError)?'error':'';?>">
+            <label class="control-label">number</label>
+            <div class="controls">
+              <input name="number" type="text" placeholder="number" value="<?php echo !empty($number)?$number:'';?>">
+              <?php if (!empty($numberError)): ?>
+                <span class="help-inline"><?php echo $numberError;?></span>
+              <?php endif;?>
+            </div>
+          </div>
+
+          <div class="control-group <?php echo !empty($expirationError)?'error':'';?>">
+            <label class="control-label">expiration</label>
+            <div class="controls">
+              <input name="expiration" type="text" placeholder="expiration" value="<?php echo !empty($expiration)?$expiration:'';?>">
+              <?php if (!empty($expirationError)): ?>
+                <span class="help-inline"><?php echo $expirationError;?></span>
+              <?php endif;?>
+            </div>
+          </div>
+
+          <div class="control-group <?php echo !empty($securitycodeError)?'error':'';?>">
+            <label class="control-label">security code</label>
+            <div class="controls">
+              <input name="securitycode" type="text" placeholder="securitycode" value="<?php echo !empty($securitycode)?$securitycode:'';?>">
+              <?php if (!empty($securitycodeError)): ?>
+                <span class="help-inline"><?php echo $securitycodeError;?></span>
+              <?php endif;?>
+            </div>
+          </div>
+
+          <div class="control-group <?php echo !empty($typeError)?'error':'';?>">
+            <label class="control-label">type</label>
+            <div class="controls">
+              <input name="type" type="text" placeholder="type" value="<?php echo !empty($type)?$type:'';?>">
+              <?php if (!empty($typeError)): ?>
+                <span class="help-inline"><?php echo $typeError;?></span>
+              <?php endif;?>
+            </div>
+          </div>
+
+<br><br><br>
+
+	<?php
+            try {
+              $pdo = Database::connect();
+              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $sql = "SELECT `address`.`id`, `address`.`street` FROM `address` LEFT JOIN `user_address` ON `address`.`id`=`user_address`.`address_FK` WHERE (`user_address`.`user_FK` = ". $_SESSION['uid'] . ")";
+              $address = $pdo->query($sql);
+              echo "<select name='address_FK'>";
+              foreach ($address as $row) {
+                echo "<option value='" . $row['id'] . "'>" . $row['street'] . "</option>";
+              }
+              echo "</select>";
+              Database::disconnect();
+            } catch (PDOException $e) {
+              echo $e->getMessage();
+              Database::disconnect();
+            }
+          ?>
+
+<br><br><br>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-success">Add Payment Method</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <?php require_once('footer.php');?>
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+
+ </body>
+</html>
