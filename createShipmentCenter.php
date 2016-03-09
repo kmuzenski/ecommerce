@@ -7,7 +7,6 @@ require_once('database.php');
       $nameError = null;
       
         // keep track post values
-    	$id = $_POST['id'];
 	  $name = $_POST['name'];
 	$address_FK = $_POST['address_FK'];
         // validate input

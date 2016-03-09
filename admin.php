@@ -160,7 +160,7 @@ require_once('session.php');
               $pdo = Database::connect();
               $id = $_SESSION['uid'];
               $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = 'SELECT * FROM shipmentcenter WHERE id = ?';
+              $sql = 'SELECT * FROM shipmentcenter';
 	      $q = $pdo->prepare($sql);
               $q->execute(array($id));
               $query = $q->fetchALL(PDO::FETCH_ASSOC);
@@ -181,7 +181,8 @@ require_once('session.php');
           	}
 	    }
           Database::disconnect();
-              //print_r($query);
+	           
+   //print_r($query);
           ?>
         </tbody>
       </table>
