@@ -116,7 +116,7 @@ require_once('session.php');
 		echo '<tr>';
                 echo '<form method="POST" action="binUpdate.php">';
 		echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
-		echo '<input type="text" name="name" value="' . $row['name'] . '">';
+		echo '<td><input type="text" name="name" value="' . $row['name'] . '"></td>';
                echo '<td><input type="text" name="location" value="'.$row['location'].'"></td>';
                echo '<td><input type="text" name="shipmentcenter_FK" value="'.$row['shipmentcenter_FK'].'"></td>';
                 echo '<td><input type="submit" value="Update"></td>';
