@@ -94,7 +94,7 @@ require_once('session.php');
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>id</th>
+	    <th>name</th>
             <th>location</th>
             <th>shipmentcenter_FK</th>
 	    <th>Action</th>
@@ -107,7 +107,7 @@ require_once('session.php');
               $pdo = Database::connect();
               $id = $_SESSION['uid'];
               $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = 'SELECT * FROM bin WHERE id IN (SELECT address_FK FROM user_address WHERE user_FK = ?)';
+              $sql = 'SELECT * FROM bin';
               $q = $pdo->prepare($sql);
               $q->execute(array($id));
               $query = $q->fetchAll(PDO::FETCH_ASSOC);
@@ -115,9 +115,10 @@ require_once('session.php');
 	foreach ($query as $row) {
 		echo '<tr>';
                 echo '<form method="POST" action="binUpdate.php">';
-                echo '<input type="text" name="id" value="' . $row['id'] . '">';
+		echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+		echo '<input type="text" name="name" value="' . $row['name'] . '">';
                echo '<td><input type="text" name="location" value="'.$row['location'].'"></td>';
-            echo '<td><input type="text" name="shipmentcenter_FK" value="'.$row['shipmentcenter_FK'].'"></td>';
+               echo '<td><input type="text" name="shipmentcenter_FK" value="'.$row['shipmentcenter_FK'].'"></td>';
                 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="binDelete.php">';

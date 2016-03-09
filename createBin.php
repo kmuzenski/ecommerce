@@ -7,12 +7,12 @@ require_once('database.php');
         // keep track validation errors
       $nameError = null;
       $locationError = null;
-         
+       
         // keep track post values
 	$name = $_POST['name'];
         $location = $_POST['location'];
 	$shipmentcenter_FK = $_POST['shipmentcenter_FK'];
-         
+        
         // validate input
       $valid = true;
         
@@ -30,17 +30,19 @@ require_once('database.php');
         try {
           $pdo = Database::connect();
           $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO bin (name,location) values(?, ?)";
+          $sql = "INSERT INTO bin (name,location,shipmentcenter_FK) values(?, ?, ?)";
           $q = $pdo->prepare($sql);
-          $q->execute(array($name,$location));
+          $q->execute(array($name,$location,$shipmentcenter_FK));
 	 
 	  $binID = $pdo->lastInsertId();
           $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO bin_shipment (bin_FK,shipmentcenter_FK) values(?,?)";
+          $sql = "INSERT INTO bin_shipment (bin_FK,shipmentcenter_FK) values(?, ?)";
           $q = $pdo->prepare($sql);
           $q->execute(array($binID,$shipmentcenter_FK));
-          Database::disconnect();
-	 header("Location: update.php");
+         
+		
+	 Database::disconnect();
+	 header("Location: admin.php");
         }
 	 catch (PDOException $e) {
           echo $e->getMessage();
@@ -91,19 +93,30 @@ require_once('database.php');
             </div>
           </div>
 	
-	<label class ="control-label">Shipment Center ID </label>
-	<select name ="id">
-	<?php
-		$pdo = Database::connect();
-		$sql = 'SELECT * FROM shipmentcenter ORDER BY id DESC';
-			foreach ($pdo->query($sql) as $row) {
-			 echo '<option name="id" value="' . $row["id"] . '">' . $row["id"] . '</option>';
-                                  }
-                                   Database::disconnect();
-                                  ?>
-                        </select>
-			<br><br>
 
+
+
+<br><br><br>
+
+	<?php
+            try {
+              $pdo = Database::connect();
+              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $sql = "SELECT `shipmentcenter`.`id`, `shipmentcenter`.`name` FROM `shipmentcenter` ORDER BY `name` ASC";
+	     $bin = $pdo->query($sql);
+              echo "<select name='shipmentcenter_FK'>";
+              foreach ($bin as $row) {
+                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+              }
+              echo "</select>";
+              Database::disconnect();
+            } catch (PDOException $e) {
+              echo $e->getMessage();
+              Database::disconnect();
+            }
+          ?>
+
+<br><br><br>
 
 
 
