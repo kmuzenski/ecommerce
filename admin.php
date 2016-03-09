@@ -57,7 +57,6 @@ require_once('session.php');
                 echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
 	        echo '<td><input type="text" name="description" value="'.$row['description'].'"></td>';
 		echo '<td><input type="text" name="price" value="'.$row['price'].'"></td>';
-                echo '<td><input type="text" name="bin_FK" value="'.$row['bin_FK'].'"></td>';
 		echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="productDelete.php">';
@@ -75,6 +74,127 @@ require_once('session.php');
       </table>
     </div>
 </div>
+
+
+
+
+
+
+
+
+<p><a href="createBin.php">create a bin</a></p>
+<div class="container">
+    <div class="row">
+      <h3>bin</h3>
+    </div>
+
+
+
+    <div class="row">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>location</th>
+            <th>shipmentcenter_FK</th>
+	    <th>Action</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          if($loggedin) {
+              $pdo = Database::connect();
+              $id = $_SESSION['uid'];
+              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $sql = 'SELECT * FROM bin WHERE id IN (SELECT address_FK FROM user_address WHERE user_FK = ?)';
+              $q = $pdo->prepare($sql);
+              $q->execute(array($id));
+              $query = $q->fetchAll(PDO::FETCH_ASSOC);
+                
+	foreach ($query as $row) {
+		echo '<tr>';
+                echo '<form method="POST" action="binUpdate.php">';
+                echo '<input type="text" name="id" value="' . $row['id'] . '">';
+               echo '<td><input type="text" name="location" value="'.$row['location'].'"></td>';
+            echo '<td><input type="text" name="shipmentcenter_FK" value="'.$row['shipmentcenter_FK'].'"></td>';
+                echo '<td><input type="submit" value="Update"></td>';
+                echo '</form>';
+                echo '<form method="POST" action="binDelete.php">';
+                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                echo '<td><input type="submit" value="Delete"></td>';
+                echo '</form>';
+                echo '</tr>';
+          }
+	}
+          Database::disconnect();
+              
+   ?>
+
+        </tbody>
+      </table>
+    </div>
+   </div>
+
+
+
+<p><a href="createShipmentCenter.php">Create a shipment center</a></p>
+<br><br>
+<div class="container">
+    <div class="row">
+      <h3>Update shipment center</h3>
+    </div>
+    <div class="row">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>name</th>
+	   <th>address_FK</th>
+            <th>Action</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          if($loggedin) {
+              $pdo = Database::connect();
+              $id = $_SESSION['uid'];
+              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $sql = 'SELECT * FROM shipmentcenter WHERE id = ?';
+	      $q = $pdo->prepare($sql);
+              $q->execute(array($id));
+              $query = $q->fetchALL(PDO::FETCH_ASSOC);
+               
+		foreach ($query as $row) {
+	 	 echo '<tr>';
+                echo '<form method="POST" action="updateShipmentCenter.php">';
+                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
+                echo '<td><input type="text" name="address_FK" value="'.$row['address_FK'].'"></td>';
+		echo '<td><input type="submit" value="Update"></td>';
+                echo '</form>';
+                echo '<form method="POST" action="deleteShipmentCenter.php">';
+                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                echo '<td><input type="submit" value="Delete"></td>';
+                echo '</form>';
+                echo '</tr>';
+          	}
+	    }
+          Database::disconnect();
+              //print_r($query);
+          ?>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
 
 
 
