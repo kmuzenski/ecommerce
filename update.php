@@ -1,4 +1,7 @@
-<?php require_once('session.php'); 
+<?php require_once('session.php');
+      require_once('database.php');
+	require_once('crud.php'); 
+
 ?>
 
 
@@ -14,7 +17,7 @@
 <body>
 
 <?php require_once('nav.php');
-	require_once('database.php');  ?>
+?>
 <br><br><br><br><br><br>
 
 
@@ -36,9 +39,8 @@
         <tbody>
           <?php
           if($loggedin) {
-              $pdo = Database::connect();
+		$pdo = Database::connect();
               $id = $_SESSION['uid'];
-              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
               $sql = 'SELECT * FROM users WHERE id = ?';
               $q = $pdo->prepare($sql);
               $q->execute(array($id));
@@ -57,9 +59,7 @@
                 echo '</form>';
                 echo '</tr>';
           }
-                
-          Database::disconnect();
-              //print_r($query);
+                Database::disconnect();
           ?>
         </tbody>
       </table>
@@ -91,38 +91,29 @@
         </thead>
         <tbody>
           <?php
-          if($loggedin) {
-              $pdo = Database::connect();
-              $id = $_SESSION['uid'];
-              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = 'SELECT * FROM address WHERE id IN (SELECT address_FK FROM user_address WHERE user_FK = ?)';
-              $q = $pdo->prepare($sql);
-              $q->execute(array($id));
-              $query = $q->fetchAll(PDO::FETCH_ASSOC);
-                
+               
+		$address = new UserAddress($_SESSION['uid']);
 
-	foreach ($query as $row) {
+		foreach ($address->read() as $row) {
 
 
 		echo '<tr>';
                 echo '<form method="POST" action="addressUpdate.php">';
-                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
-               echo '<td><input type="text" name="street" value="'.$row['street'].'"></td>';
-            echo '<td><input type="text" name="city" value="'.$row['city'].'"></td>';
-                echo '<td><input type="text" name="zip" value="'.$row['zip'].'"></td>';
+		echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                echo '<td><input type="text" name="street" value="'.$row['street'].'"></td>';
+        	echo '<td><input type="text" name="city" value="'.$row['city'].'"></td>';
+		echo '<td><input type="text" name="zip" value="'.$row['zip'].'"></td>';
 		echo '<td><input type="text" name="state" value="'.$row['state'].'"></td>';
 		echo '<td><input type="text" name="country" value="'.$row['country'].'"></td>';
-                echo '<td><input type="submit" value="Update"></td>';
+		 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
-                echo '<form method="POST" action="addressDelete.php">';
+		 echo '<form method="POST" action="addressDelete.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
-                echo '<td><input type="submit" value="Delete"></td>';
-                echo '</form>';
+		 echo '<td><input type="submit" value="Delete"></td>';
+		echo '</form>';
                 echo '</tr>';
           }
-	}
 
-          Database::disconnect();
               
    ?>
 
@@ -160,9 +151,7 @@
         <tbody>
           <?php
           if($loggedin) {
-              $pdo = Database::connect();
               $id = $_SESSION['uid'];
-              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
               $sql = 'SELECT * FROM creditcard WHERE id IN (SELECT credit_FK FROM user_creditcard WHERE user_FK = ?)';
               $q = $pdo->prepare($sql);
               $q->execute(array($id));
@@ -189,7 +178,6 @@
                 echo '</tr>';
           }
         }
-        Database::disconnect();
 
    ?>
 
@@ -204,4 +192,4 @@
 </body>
 
 </html>
-
+<?php Database::disconnect(); ?>
