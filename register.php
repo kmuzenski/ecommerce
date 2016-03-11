@@ -1,57 +1,22 @@
-<?php require_once('session.php'); ?>
-
-
 <?php
+         require_once('database.php');
+	require_once('session.php');
+	require_once('crud.php');
 
-         require 'database.php';
-
-    if ( !empty($_POST)) {
-        // keep track validation errors
-        $usernameError = null;
-        $emailError = null;
-	$passwordError = null;
-
-        // keep track post values
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-	$password = $_POST['password'];
-
-        // validate input
-        $valid = true;
-        if (empty($username)) {
-            $usernameError = 'Please enter Name';
-            $valid = false;
-        }
-
-        if (empty($email)) {
-            $emailError = 'Please enter Email Address';
-            $valid = false;
-        } else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
-            $emailError = 'Please enter a valid Email Address';
-            $valid = false;
-        }
-
-
-	if (empty($password)) {
-		$passwordError = 'please enter password';
-		$valid = false;
-	}
-
-
-        if ($valid) {
-            $pdo = Database::connect();
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO users (username,email,password) values(?, ?, ?)";
-            $q = $pdo->prepare($sql);
-
-           $q->execute(array($username,$email,$password));
-
-            Database::disconnect();
-            header("Location: registersuccess.php");
-       }
-
-  }
-
+  if ( !empty($_POST)) {
+      // keep track post values
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+       
+    $userCreate = new UserCrud();
+    $create = $userCreate->create($username,$email,$password);
+    if ($create) {
+      header('Location: loginpage.php');
+    } else {
+      header('Location: loginpage.php');
+    }
+}
 ?>
 
 

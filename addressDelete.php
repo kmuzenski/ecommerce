@@ -4,7 +4,7 @@
   require_once('crud.php');
  
   if ( !empty($_POST['id']) && isset($_POST['id'])) {
-    $address = new UserAddress($_SESSION['id']);
+    $address = new UserAddress($_SESSION['uid']);
     $response = $address->delete($_POST['id']);
     if($response){
     //  echo "success";

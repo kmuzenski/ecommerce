@@ -1,15 +1,10 @@
 <?php
-require_once('session.php');
 error_reporting(E_ALL);
-require_once('database.php');
+require_once 'database.php';
+require_once 'crud.php';
+require_once 'session.php';
  
     if ( !empty($_POST)) {
-        // keep track validation errors
-      $streetError = null;
-      $cityError = null;
-      $zipError = null;
-      $stateError = null;
-      $countryError = null;
          
         // keep track post values
       $street = $_POST['street'];
@@ -17,57 +12,21 @@ require_once('database.php');
       $zip = $_POST['zip'];
       $state = $_POST['state'];
       $country = $_POST['country'];
-         
-        // validate input
-      $valid = true;
-        
-      if (empty($street)) {
-        $streetError = 'Please enter Street';
-        $valid = false;
-      }
-      if (empty($city)) {
-        $cityError = 'Please enter City';
-        $valid = false;
-      }
-      if (empty($zip)) {
-        $zipError = 'Please enter zip';
-        $valid = false;
-      }
-      if (empty($state)) {
-        $stateError = 'Please enter state';
-        $valid = false;
-      }
-      if (empty($country)) {
-        $countryError = 'Please enter Country';
-        $valid = false;
-      }
-         
-        // insert data
-      if ($valid) {
-        try {
-          $pdo = Database::connect();
-          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO address (street,city,zip,state,country) values(?, ?, ?, ?, ?)";
-          $q = $pdo->prepare($sql);
-          $q->execute(array($street,$city,$zip,$state,$country));
-	 
-	  $addressID = $pdo->lastInsertId();
-          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO user_address (address_FK,user_FK) values(?,?)";
-          $q = $pdo->prepare($sql);
-          $q->execute(array($addressID, $_SESSION['uid']));
-          Database::disconnect();
-	 header("Location: update.php");
-        }
-	 catch (PDOException $e) {
-          echo $e->getMessage();
-        }
-      }
-   } 
 	
+      $address = new UserAddress($_SESSION['uid']);
+
+	$response = $address->create($street,$city,$zip,$state,$country);
+  
+if ($response) {
+    header("Location: update.php");
+  } else {
+    header("Location: update.php");
+  }
+}
+
+
+
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
