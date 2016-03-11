@@ -13,7 +13,7 @@ error_reporting(E_ALL);
       $zip = $_POST['zip'];
       $state = $_POST['state'];
       $country = $_POST['country'];
-
+      
       $address = new UserAddress($_SESSION['uid']);
       $response = $address->update($street,$city,$zip,$state,$country,$id);
       if ($response) {

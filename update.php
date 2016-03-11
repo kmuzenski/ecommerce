@@ -150,15 +150,9 @@
         </thead>
         <tbody>
           <?php
-          if($loggedin) {
-              $id = $_SESSION['uid'];
-              $sql = 'SELECT * FROM creditcard WHERE id IN (SELECT credit_FK FROM user_creditcard WHERE user_FK = ?)';
-              $q = $pdo->prepare($sql);
-              $q->execute(array($id));
-              $query = $q->fetchAll(PDO::FETCH_ASSOC);
+		$creditcard = new UserCredit($_SESSION['uid']);
 
-
-        foreach ($query as $row) {
+        	foreach ($creditcard->read() as $row) {
 
 
                 echo '<tr>';
@@ -169,7 +163,23 @@
                 echo '<td><input type="text" name="expiration" value="'.$row['expiration'].'"></td>';
                 echo '<td><input type="text" name="securitycode" value="'.$row['securitycode'].'"></td>';
                 echo '<td><input type="text" name="type" value="'.$row['type'].'"></td>';
-                echo '<td><input type="submit" value="Update"></td>';
+               
+		 echo '<td>';
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $sql = "SELECT `address`.`id`, `address`.`street` FROM `address` ORDER BY `street` ASC";
+                $address = $pdo->query($sql);
+                echo "<select name='address_FK'>";
+                foreach ($address as $row1) {
+                  echo "<option value='" . $row1['id'] . "'";
+                  if($row1['id']==$row['address_FK']){
+                    echo " selected ";
+                  }
+                  echo ">" . $row1['street'] . "</option>";
+                }
+                echo "</select>";
+                echo "</td>";
+
+		 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="deletePayment.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
@@ -177,7 +187,7 @@
                 echo '</form>';
                 echo '</tr>';
           }
-        }
+        
 
    ?>
 

@@ -180,18 +180,18 @@ class UserCredit {
 		$this->user_id = $user_id;
 	}
 
-	public function create($name, $number, $expiration, $securitycode, $type){
-		if (!valid($name) || !valid($number) || !valid($expiration) || !valid($securitycode) || !valid($type) ) {
+	public function create($name, $number, $expiration, $securitycode, $type, $address_FK){
+		if (!valid($name) || !valid($number) || !valid($expiration) || !valid($securitycode) || !valid($type) || !valid($address_FK)) {
 			return false;
 		} else {
 
 			$pdo = Database::connect();
-			$sql = "INSERT INTO creditcard (name,number,expiration,securitycode,type) values(?, ?, ?, ?, ?)";
+			$sql = "INSERT INTO creditcard (name,number,expiration,securitycode,type,address_FK) values(?, ?, ?, ?, ?, ?)";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($name,$number,$expiration,$securitycode,$type));
+			$q->execute(array($name,$number,$expiration,$securitycode,$type,$address_FK));
 			$credit_id = $pdo->lastInsertId();
 
-			$sql = "INSERT INTO user_creditcard(user_FK, credit_FK) values(?, ?)";
+			$sql = "INSERT INTO user_creditcard(credit_FK, user_FK) values(?, ?)";
 			$q = $pdo->prepare($sql);
 			$q->execute(array($credit_id, $this->user_id)); 
 
@@ -219,14 +219,14 @@ class UserCredit {
 
     }
 
-	public function update($name, $number, $expiration, $securitycode, $type, $credit_id){
-		if (!valid($name) || !valid($number) || !valid($expiration) || !valid($securitycode) || !valid($type) ) {
+	public function update($name, $number, $expiration, $securitycode, $type, $address_FK){
+		if (!valid($name) || !valid($number) || !valid($expiration) || !valid($securitycode) || !valid($type) || !valid($address_FK)) {
 			return false;
 		} else {
 			$pdo = Database::connect();
-			$sql = "UPDATE creditcard SET name = ?, number = ?, expiration = ?, securitycode = ?, type = ? WHERE id = ?";
+			$sql = "UPDATE creditcard SET name = ?, number = ?, expiration = ?, securitycode = ?, type = ?, address_FK = ? WHERE id = ?";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($name,$number,$expiration,$securitycode,$type,$credit_id));
+			$q->execute(array($name,$number,$expiration,$securitycode,$type,$address_FK,$credit_id));
 			Database::disconnect();
 			return true;
 		}

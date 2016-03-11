@@ -2,15 +2,10 @@
 require_once('session.php');
 error_reporting(E_ALL);
 require_once('database.php');
+require_once('crud.php');
 
     if ( !empty($_POST)) {
-        // keep track validation errors
-      $nameError = null;
-      $numberError = null;
-      $expirationError = null;
-      $securitycodeError = null;
-      $typeError = null;
-
+         
         // keep track post values
       $name = $_POST['name'];
       $number = $_POST['number'];
@@ -18,54 +13,16 @@ require_once('database.php');
       $securitycode = $_POST['securitycode'];
       $type = $_POST['type'];
       $address_FK = $_POST['address_FK'];
-     
-
-	   // validate input
-      $valid = true;
-
-      if (empty($name)) {
-        $nameError = 'Please enter name';
-        $valid = false;
-      }
-      if (empty($number)) {
-        $numberError = 'Please enter number';
-        $valid = false;
-      }
-      if (empty($expiration)) {
-        $expirationError = 'Please enter exp date';
-        $valid = false;
-      }
-      if (empty($securitycode)) {
-        $securitycodeError = 'Please enter security code';
-        $valid = false;
-      }
-      if (empty($type)) {
-        $typeError = 'Please enter type';
-        $valid = false;
-      }
-
-      // insert data
-      if ($valid) {
-        try {
-          $pdo = Database::connect();
-          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO creditcard (name,number,expiration,securitycode,type,address_FK) values(?, ?, ?, ?, ?, ?)";
-          $q = $pdo->prepare($sql);
-          $q->execute(array($name,$number,$expiration,$securitycode,$type,$address_FK));
-
-          $creditID = $pdo->lastInsertId();
-          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO user_creditcard (credit_FK,user_FK) values(?,?)";
-          $q = $pdo->prepare($sql);
-          $q->execute(array($creditID, $_SESSION['uid']));
-          Database::disconnect();
-         header("Location: update.php");
-        }
-         catch (PDOException $e) {
-          echo $e->getMessage();
-        }
-      }
-   }
+	
+      $createCredit = new UserCredit($_SESSION['uid']);
+     $response = $createCredit->create($name,$number,$expiration,$securitycode,$type,$address_FK);
+  
+if ($response) {
+    header("Location: update.php");
+  } else {
+    header("Location: update.php");
+  }
+}
 
 ?>
 
