@@ -41,32 +41,36 @@ Database::connect();
           </tr>
         </thead>
         <tbody>
-          <?php
-	/*	$product = new ProductCrud($_SESSION['uid']);
-		
-		foreach ($product->read() as $row) {
-	 	 echo '<tr>';
+	<?php
+            $product = new ProductCrud($_SESSION['uid']);
+                
+                foreach ($product->read() as $row) {
+                 echo '<tr>';
                 echo '<form method="POST" action="updateProduct.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
                 echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
-	        echo '<td><input type="text" name="description" value="'.$row['description'].'"></td>';
-		echo '<td><input type="text" name="price" value="'.$row['price'].'"></td>';
-		echo '<td>';
+                echo '<td><input type="text" name="description" value="'.$row['description'].'"></td>';
+                echo '<td><input type="text" name="price" value="'.$row['price'].'"></td>';
+                echo '<td>';
+		$pdo = Database::connect();
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $sql = "SELECT `bin`.`id`, `bin`.`name` FROM `bin` ORDER BY `name` ASC";
-       	        $bin = $pdo->query($sql);
+                $sql = "SELECT * FROM  `bin` ORDER BY `name` ASC";
+                $bin = $pdo->query($sql);
+		Database::disconnect();
                 echo "<select name='bin_FK'>";
                 foreach ($bin as $row2) {
                   echo "<option value='" . $row2['id'] . "'";
                   if($row2['id']==$row['bin_FK']){
-                  	echo " selected ";
+                        echo " selected ";
                   }
                   echo ">" . $row2['name'] . "</option>";
-                }
+                
+		}
+		
                 echo "</select>";
-                echo "</td>";	
-
-		echo '<td><input type="submit" value="Update"></td>';
+                echo "</td>";   
+		
+                echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="productDelete.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
@@ -74,9 +78,12 @@ Database::connect();
                 echo '</form>';
                 echo '</tr>';
           
-		}
-        */
-	  ?>
+                }
+        
+          ?>
+
+
+
         </tbody>
       </table>
     </div>

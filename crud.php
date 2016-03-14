@@ -409,13 +409,13 @@ class ProductCrud {
 		}
     }
 	public function update($name,$description,$price,$bin_FK){
-		if (!valid($name) || !valid($description) || !valid($price) {
+		if (!valid($name) || !valid($description) || !valid($price) || !valid($bin_FK)) {
 			return false;
 		} else {
 			$pdo = Database::connect();
 			$sql = "UPDATE product SET name = ?, description = ?, price = ?, bin_FK = ? WHERE id = ?";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($name,$description,$price$bin_FK,$id));
+			$q->execute(array($name,$description,$price,$bin_FK,$id));
 			Database::disconnect();
 			return true;
 		}
