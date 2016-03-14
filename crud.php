@@ -169,7 +169,7 @@ class UserAddress {
 
 
 
-
+//USER CREDIT CRUD
 class UserCredit {	
 
 
@@ -243,4 +243,62 @@ class UserCredit {
 
 	}
 
+}
+
+
+//ADMIN SHIPMENET CENTER CRUD
+
+class ShipmentCenter {	
+	public $user_id;
+	public function __construct($user_id){
+		$this->user_id = $user_id;
+	}
+	public function create($name, $address_FK){
+		if (!valid($street) || !valid($address_FK)) {
+			return false;
+		} else {
+			$pdo = Database::connect();
+			$sql = "INSERT INTO shipmentcenter (name,address_FK) values(?, ?)";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($name,$address_FK));
+			$shipment_id = $pdo->lastInstertId();
+			Database::disconnect();
+			return true;
+		}
+	}
+	public function read(){
+		try{
+			$pdo = Database::connect();
+			$sql = 'SELECT * FROM shipmentcenter ORDER BY name';
+			$q = $pdo->prepare($sql);
+			$q->execute(array($this->user_id));
+			$data = $q->fetchAll(PDO::FETCH_ASSOC);
+	        Database::disconnect();
+	        return $data;
+		} catch (PDOException $error){
+			header( "Location: 500.php" );
+			//echo $error->getMessage();
+			
+		}
+    }
+	public function update($name,$address_FK,$shipment_id){
+		if (!valid($name) || !valid($address_FK)) {
+			return false;
+		} else {
+			$pdo = Database::connect();
+			$sql = "UPDATE shipmentcenter SET name = ?, address_FK = ? WHERE id = ?";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($name,$address_FK,$shipment_id));
+			Database::disconnect();
+			return true;
+		}
+	}
+	public function delete($shipment_id){
+        $pdo = Database::connect();
+        $sql = "DELETE FROM shipmentcenter  WHERE id = ?"; //taken from SQL query on phpMyAdmin
+        $q = $pdo->prepare($sql);
+        $q->execute(array($shipment_id));
+        Database::disconnect();
+        return true;
+	}
 }

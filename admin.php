@@ -1,5 +1,7 @@
 <?php
+require_once('database.php');
 require_once('session.php');
+require_once('crud.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -9,7 +11,7 @@ require_once('session.php');
 </head>
 <body>
 <?php require_once('nav.php'); 
-	require_once('database.php');?>
+	?>
 <br><br><br><br><br><br>
 
 <div id="profile">
@@ -43,7 +45,7 @@ require_once('session.php');
               $pdo = Database::connect();
               $id = $_SESSION['uid'];
               $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = 'SELECT * FROM product WHERE id = ?';
+              $sql = 'SELECT * FROM product ORDER BY id';
               $q = $pdo->prepare($sql);
               $q->execute(array($id));
               $query = $q->fetchALL(PDO::FETCH_ASSOC);
@@ -57,6 +59,21 @@ require_once('session.php');
                 echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
 	        echo '<td><input type="text" name="description" value="'.$row['description'].'"></td>';
 		echo '<td><input type="text" name="price" value="'.$row['price'].'"></td>';
+		echo '<td>';
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $sql = "SELECT `bin`.`id`, `bin`.`name` FROM `bin` ORDER BY `name` ASC";
+       	        $bin = $pdo->query($sql);
+                echo "<select name='bin_FK'>";
+                foreach ($bin as $row2) {
+                  echo "<option value='" . $row2['id'] . "'";
+                  if($row2['id']==$row['bin_FK']){
+                  	echo " selected ";
+                  }
+                  echo ">" . $row2['name'] . "</option>";
+                }
+                echo "</select>";
+                echo "</td>";	
+
 		echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="productDelete.php">';
@@ -157,16 +174,9 @@ require_once('session.php');
         </thead>
         <tbody>
           <?php
-          if($loggedin) {
-              $pdo = Database::connect();
-              $id = $_SESSION['uid'];
-              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = 'SELECT * FROM shipmentcenter';
-	      $q = $pdo->prepare($sql);
-              $q->execute(array($id));
-              $query = $q->fetchALL(PDO::FETCH_ASSOC);
-               
-		foreach ($query as $row) {
+            /*  $shipment = new ShipmentCenter($_SESSION['uid']); 
+		
+		foreach ($shipment->read as $row) {
 	 	 echo '<tr>';
                 echo '<form method="POST" action="updateShipmentCenter.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
@@ -182,22 +192,12 @@ require_once('session.php');
           	}
 	    }
           Database::disconnect();
-	           
-   //print_r($query);
+	 */         
           ?>
         </tbody>
       </table>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 
 </body>

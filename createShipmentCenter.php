@@ -1,39 +1,48 @@
 <?php
-require_once('session.php');
 error_reporting(E_ALL);
-require_once('database.php');
+require_once 'database.php';
+require_once 'crud.php';
+require_once 'session.php';
+ 
     if ( !empty($_POST)) {
         // keep track validation errors
       $nameError = null;
-      
+         
         // keep track post values
-	  $name = $_POST['name'];
-	$address_FK = $_POST['address_FK'];
+      $name = $_POST['name'];
+      $address_FK = $_POST['address_FK'];
+         
         // validate input
       $valid = true;
+        
       if (empty($name)) {
-        $nameError = 'Please enter name';
+        $nameError = 'Please enter Shipment Center Name';
         $valid = false;
       }
-      // insert data
+         
+        // insert data
       if ($valid) {
         try {
           $pdo = Database::connect();
           $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO shipmentcenter (name,address_FK) values(?,?)";
+          $sql = "INSERT INTO shipmentcenter (name,address_FK) values(?, ?)";
           $q = $pdo->prepare($sql);
           $q->execute(array($name,$address_FK));
-	 
           Database::disconnect();
-         header("Location: admin.php");
-        }
-         catch (PDOException $e) {
+          header("Location: admin.php");
+        } catch (PDOException $e) {
           echo $e->getMessage();
         }
+      $shipment = new ShipmentCenter($_SESSION['uid']);
+      $response = $shipment->create($name,$address_FK);
+      if ($response) {
+        header('Location: admin.php');
+      } else {
+        header('Location: admin.php');
       }
-   }
-?>
 
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
  <head>
