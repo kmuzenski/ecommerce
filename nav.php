@@ -18,6 +18,8 @@
 		<ul class="nav navbar-nav">
             
 		<li><a href="index.php">Home</a></li>
+
+		<li><a href="products.php">Products</a></li>
            	
 		<li><a href="register.php">Register</a></li>
          

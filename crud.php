@@ -18,7 +18,6 @@ function valid($varname){
 class UserCrud {	
 
 
-	public $user_id;
 
 
 	public function __construct($user_id){
@@ -41,7 +40,7 @@ class UserCrud {
 		}
 	}
 
-	public function read(){
+	public function read($user_id){
 		try{
 			$pdo = Database::connect();
 			$sql = 'SELECT * FROM users WHERE id = ?';

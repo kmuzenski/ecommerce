@@ -38,29 +38,24 @@
         </thead>
         <tbody>
           <?php
-          if($loggedin) {
-		$pdo = Database::connect();
-              $id = $_SESSION['uid'];
-              $sql = 'SELECT * FROM users WHERE id = ?';
-              $q = $pdo->prepare($sql);
-              $q->execute(array($id));
-              $query = $q->fetch(PDO::FETCH_ASSOC);
-                echo '<tr>';
+               $user = new UserCrud();
+               $info = $user->read($user_id);
+ 
+		echo '<tr>';
                 echo '<form method="POST" action="updateUser.php">';
-                echo '<input type="hidden" name="id" value="'.$query['id'].'">';
-               echo '<td><input type="text" name="username" value="'.$query['username'].'"></td>'; 
-                echo '<td><input type="text" name="email" value="'.$query['email'].'"></td>';
-                echo '<td><input type="text" name="password" value="'.$query['password'].'"></td>';
+                echo '<input type="hidden" name="id" value="'.$info['id'].'">';
+               echo '<td><input type="text" name="username" value="'.$info['username'].'"></td>'; 
+                echo '<td><input type="text" name="email" value="'.$info['email'].'"></td>';
+                echo '<td><input type="text" name="password" value="'.$info['password'].'"></td>';
                 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="userDelete.php">';
-                echo '<input type="hidden" name="id" value="' . $query['id'] . '">';
+                echo '<input type="hidden" name="id" value="' . $info['id'] . '">';
                 echo '<td><input type="submit" value="Delete"></td>';
                 echo '</form>';
                 echo '</tr>';
-          }
-                Database::disconnect();
-          ?>
+             
+		?>
         </tbody>
       </table>
     </div>
