@@ -261,10 +261,14 @@ class ShipmentCenter {
 			$q = $pdo->prepare($sql);
 			$q->execute(array($name,$address_FK));
 			$shipment_id = $pdo->lastInstertId();
+
+
+
 			Database::disconnect();
 			return true;
 		}
 	}
+
 	public function read(){
 		try{
 			$pdo = Database::connect();
@@ -280,7 +284,7 @@ class ShipmentCenter {
 			
 		}
     }
-	public function update($name,$address_FK,$shipment_id){
+	public function update($name,$address_FK){
 		if (!valid($name) || !valid($address_FK)) {
 			return false;
 		} else {
@@ -292,11 +296,74 @@ class ShipmentCenter {
 			return true;
 		}
 	}
+
 	public function delete($shipment_id){
         $pdo = Database::connect();
-        $sql = "DELETE FROM shipmentcenter  WHERE id = ?"; //taken from SQL query on phpMyAdmin
+        $sql = "DELETE FROM `ecomm`.`shipmentcenter` WHERE `shipmentcenter`.`id` = ?"; 
         $q = $pdo->prepare($sql);
         $q->execute(array($shipment_id));
+        Database::disconnect();
+        return true;
+	}
+}
+
+
+
+
+// ADMIN BIN CRUD
+class BinCrud {	
+	public $user_id;
+	public function __construct($user_id){
+		$this->user_id = $user_id;
+	}
+	public function create($name, $location, $shipmentcenter_FK){
+		if (!valid($name) || !valid($location) || !valid($shipmentcenter_FK)) {
+			return false;
+		} else {
+			$pdo = Database::connect();
+			$sql = "INSERT INTO bin (name,location,shipmentcenter_FK) values(?, ?, ?)";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($name,$location,$shipmentcenter_FK));
+			$bin_id = $pdo->lastInsertId();
+			$sql = "INSERT INTO bin_shipment(bin_FK, shipmentcenter_FK) values(?, ?)";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($bin_id, $shipmentcenter_FK)); 
+			Database::disconnect();
+			return true;
+		}
+	}
+	public function read(){
+		try{
+			$pdo = Database::connect();
+			$sql = 'SELECT * FROM bin ORDER BY id DESC';
+			$q = $pdo->prepare($sql);
+			$q->execute(array($this->user_id));
+			$data = $q->fetchAll(PDO::FETCH_ASSOC);
+	        Database::disconnect();
+	        return $data;
+		} catch (PDOException $error){
+			header( "Location: 500.php" );
+			//echo $error->getMessage();
+			
+		}
+    }
+	public function update($name, $location, $shipmentcenter_FK){
+		if (!valid($name) || !valid($location) || !valid($shipmentcenter_FK)) {
+			return false;
+		} else {
+			$pdo = Database::connect();
+			$sql = "UPDATE bin SET name = ?, location = ?, shipmentcenter_FK = ?,  WHERE id = ?";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($name,$location,$shipmentcenter_FK,$bin_id));
+			Database::disconnect();
+			return true;
+		}
+	}
+	public function delete($bin_id){
+        $pdo = Database::connect();
+        $sql = "DELETE FROM bin_shipment WHERE bin_FK = ?"; 
+        $q = $pdo->prepare($sql);
+        $q->execute(array($bin_id));
         Database::disconnect();
         return true;
 	}

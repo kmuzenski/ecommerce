@@ -1,7 +1,7 @@
 <?php require_once('session.php');
       require_once('database.php');
 	require_once('crud.php'); 
-
+	Database::connect();
 ?>
 
 
@@ -38,23 +38,23 @@
         </thead>
         <tbody>
           <?php
-               $user = new UserCrud();
-               $info = $user->read($user_id);
- 
+               $user = new UserCrud($_SESSION['uid']);
+                
+ 		foreach ($user->read() as $row) {
 		echo '<tr>';
                 echo '<form method="POST" action="updateUser.php">';
-                echo '<input type="hidden" name="id" value="'.$info['id'].'">';
-               echo '<td><input type="text" name="username" value="'.$info['username'].'"></td>'; 
-                echo '<td><input type="text" name="email" value="'.$info['email'].'"></td>';
-                echo '<td><input type="text" name="password" value="'.$info['password'].'"></td>';
+                echo '<input type="hidden" name="id" value="'.$row['id'].'">';
+               echo '<td><input type="text" name="username" value="'.$row['username'].'"></td>'; 
+                echo '<td><input type="text" name="email" value="'.$row['email'].'"></td>';
+                echo '<td><input type="text" name="password" value="'.$row['password'].'"></td>';
                 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="userDelete.php">';
-                echo '<input type="hidden" name="id" value="' . $info['id'] . '">';
+                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
                 echo '<td><input type="submit" value="Delete"></td>';
                 echo '</form>';
                 echo '</tr>';
-             
+             }
 		?>
         </tbody>
       </table>
@@ -155,25 +155,11 @@
                 echo '<form method="POST" action="updatePayment.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
                echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
-            echo '<td><input type="text" name="number" value="'.$row['number'].'"></td>';
+               echo'<td><input type="text" name="number" value="'.$row['number'].'"></td>';
                 echo '<td><input type="text" name="expiration" value="'.$row['expiration'].'"></td>';
                 echo '<td><input type="text" name="securitycode" value="'.$row['securitycode'].'"></td>';
                 echo '<td><input type="text" name="type" value="'.$row['type'].'"></td>';
-               
-		 echo '<td>';
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $sql = "SELECT `address`.`id`, `address`.`street` FROM `address` ORDER BY `street` ASC";
-                $address = $pdo->query($sql);
-                echo "<select name='address_FK'>";
-                foreach ($address as $row1) {
-                  echo "<option value='" . $row1['id'] . "'";
-                  if($row1['id']==$row['address_FK']){
-                    echo " selected ";
-                  }
-                  echo ">" . $row1['street'] . "</option>";
-                }
-                echo "</select>";
-                echo "</td>";
+                echo '<td><input type="text" name="address_FK" value="'.$row['address_FK'].'"> </td>';
 
 		 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
@@ -192,10 +178,11 @@
     </div>
    </div>
 
-
-
+<?php require_once('footer.php');
+     Database::disconnect();
+?>
 
 </body>
 
 </html>
-<?php Database::disconnect(); ?>
+

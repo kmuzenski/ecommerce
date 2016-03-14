@@ -2,6 +2,7 @@
 require_once('session.php');
 require_once('database.php');
 require_once('crud.php');
+Database::connect();
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,7 +43,7 @@ require_once('crud.php');
         <tbody>
           <?php
           if($loggedin) {
-              $pdo = Database::connect();
+		$pdo = Database::connect();
               $id = $_SESSION['uid'];
               $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
               $sql = 'SELECT * FROM product ORDER BY id';
@@ -83,9 +84,7 @@ require_once('crud.php');
                 echo '</tr>';
           	}
 	    }
-
-          Database::disconnect();
-              //print_r($query);
+           Database::disconnect();
           ?>
         </tbody>
       </table>
@@ -120,16 +119,9 @@ require_once('crud.php');
         </thead>
         <tbody>
           <?php
-          if($loggedin) {
-              $pdo = Database::connect();
-              $id = $_SESSION['uid'];
-              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = 'SELECT * FROM bin';
-              $q = $pdo->prepare($sql);
-              $q->execute(array($id));
-              $query = $q->fetchAll(PDO::FETCH_ASSOC);
-                
-	foreach ($query as $row) {
+		$bin = new BinCrud($_SESSION['uid']);
+		
+		foreach ($bin->read() as $row) {
 		echo '<tr>';
                 echo '<form method="POST" action="binUpdate.php">';
 		echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
@@ -144,9 +136,7 @@ require_once('crud.php');
                 echo '</form>';
                 echo '</tr>';
           }
-	}
-          Database::disconnect();
-              
+	
    ?>
 
         </tbody>
@@ -174,9 +164,9 @@ require_once('crud.php');
         </thead>
         <tbody>
           <?php
-            /*  $shipment = new ShipmentCenter($_SESSION['uid']); 
+              $shipment = new ShipmentCenter($_SESSION['uid']); 
 		
-		foreach ($shipment->read as $row) {
+		foreach ($shipment->read() as $row) {
 	 	 echo '<tr>';
                 echo '<form method="POST" action="updateShipmentCenter.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
@@ -190,14 +180,20 @@ require_once('crud.php');
                 echo '</form>';
                 echo '</tr>';
           	}
-	    }
-          Database::disconnect();
-	 */         
+	    
+	         
           ?>
         </tbody>
       </table>
     </div>
 </div>
+
+
+
+<?php require_once('footer.php');
+Database::disconnect();
+?>
+
 
 
 </body>

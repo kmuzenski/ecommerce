@@ -1,54 +1,32 @@
 <?php
+
 require_once('session.php');
 error_reporting(E_ALL);
 require_once('database.php');
+require_once('crud.php');
  
-    if ( !empty($_POST)) {
-        // keep track validation errors
-      $nameError = null;
-      $locationError = null;
-       
+
+   if ( !empty($_POST)) {
+         
         // keep track post values
-	$name = $_POST['name'];
-        $location = $_POST['location'];
-	$shipmentcenter_FK = $_POST['shipmentcenter_FK'];
-        
-        // validate input
-      $valid = true;
-        
-      if (empty($name)) {
-        $nameError = 'Please enter name';
-        $valid = false;
-      }
-      if (empty($location)) {
-        $locationError = 'Please enter location of the bin';
-        $valid = false;
-      }
-         
-        // insert data
-      if ($valid) {
-        try {
-          $pdo = Database::connect();
-          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO bin (name,location,shipmentcenter_FK) values(?, ?, ?)";
-          $q = $pdo->prepare($sql);
-          $q->execute(array($name,$location,$shipmentcenter_FK));
-	 
-	  $binID = $pdo->lastInsertId();
-          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO bin_shipment (bin_FK,shipmentcenter_FK) values(?, ?)";
-          $q = $pdo->prepare($sql);
-          $q->execute(array($binID,$shipmentcenter_FK));
-         
-		
-	 Database::disconnect();
-	 header("Location: admin.php");
-        }
-	 catch (PDOException $e) {
-          echo $e->getMessage();
-        }
-      }
-   } 
+      $name = $_POST['name'];
+      $location = $_POST['location'];
+      $shipmentcenter_FK = $_POST['shipmentcenter_FK'];
+	
+      $createBin = new BinCrud($_SESSION['uid']);
+     $response = $createBin->create($name,$location,$shipmentcenter_FK);
+  
+if ($response) {
+    header("Location: admin.php");
+  } else {
+    header("Location: admin.php");
+  }
+}
+
+
+
+
+
 	
 ?>
 
