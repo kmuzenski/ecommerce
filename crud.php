@@ -368,3 +368,64 @@ class BinCrud {
         return true;
 	}
 }
+
+
+//PRODUCT CRUD
+class ProductCrud {	
+	public $user_id;
+	public function __construct($user_id){
+		$this->user_id = $user_id;
+	}
+	public function create($name, $description, $price, $bin_FK){
+		if (!valid($name) || !valid($description) || !valid($price) || !valid($bin_FK)) {
+			return false;
+		} else {
+			$pdo = Database::connect();
+			$sql = "INSERT INTO product (name,description,price,bin_FK) values(?, ?, ?, ?)";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($name,$description,$price,$bin_FK));
+			$product_id = $pdo->lastInstertId();
+			$sql = "INSERT INTO product_bin (product_FK, bin_FK) values(?, ?)";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($product_id,$bin_FK));
+
+			Database::disconnect();
+			return true;
+		}
+	}
+	public function read(){
+		try{
+			$pdo = Database::connect();
+			$sql = 'SELECT * FROM product ORDER BY id';
+			$q = $pdo->prepare($sql);
+			$q->execute(array($this->user_id));
+			$data = $q->fetchAll(PDO::FETCH_ASSOC);
+	        Database::disconnect();
+	        return $data;
+		} catch (PDOException $error){
+			header( "Location: 500.php" );
+			//echo $error->getMessage();
+			
+		}
+    }
+	public function update($name,$description,$price,$bin_FK){
+		if (!valid($name) || !valid($description) || !valid($price) {
+			return false;
+		} else {
+			$pdo = Database::connect();
+			$sql = "UPDATE product SET name = ?, description = ?, price = ?, bin_FK = ? WHERE id = ?";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($name,$description,$price$bin_FK,$id));
+			Database::disconnect();
+			return true;
+		}
+	}
+	public function delete($product_id){
+        $pdo = Database::connect();
+        $sql = "DELETE FROM product WHERE id = ?"; 
+        $q = $pdo->prepare($sql);
+        $q->execute(array($product_id));
+        Database::disconnect();
+        return true;
+	}
+}

@@ -42,18 +42,9 @@ Database::connect();
         </thead>
         <tbody>
           <?php
-          if($loggedin) {
-		$pdo = Database::connect();
-              $id = $_SESSION['uid'];
-              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = 'SELECT * FROM product ORDER BY id';
-              $q = $pdo->prepare($sql);
-              $q->execute(array($id));
-              $query = $q->fetchALL(PDO::FETCH_ASSOC);
-               
-		foreach ($query as $row) {
-
-
+	/*	$product = new ProductCrud($_SESSION['uid']);
+		
+		foreach ($product->read() as $row) {
 	 	 echo '<tr>';
                 echo '<form method="POST" action="updateProduct.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
@@ -82,10 +73,10 @@ Database::connect();
                 echo '<td><input type="submit" value="Delete"></td>';
                 echo '</form>';
                 echo '</tr>';
-          	}
-	    }
-           Database::disconnect();
-          ?>
+          
+		}
+        */
+	  ?>
         </tbody>
       </table>
     </div>

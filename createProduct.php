@@ -2,60 +2,24 @@
 require_once('session.php');
 error_reporting(E_ALL);
 require_once('database.php');
-
+require_once('crud.php');
     if ( !empty($_POST)) {
-        // keep track validation errors
-      $nameError = null;
-      $descriptionError = null;
-      $priceError = null;
-      
-
+         
         // keep track post values
       $name = $_POST['name'];
       $description = $_POST['description'];
       $price = $_POST['price'];
+      $bin_FK = $_POST['bin_FK'];
 	
-
-        // validate input
-      $valid = true;
-
-      if (empty($name)) {
-        $nameError = 'Please enter name';
-        $valid = false;
-      }
-      if (empty($description)) {
-        $descriptionError = 'Please enter description';
-        $valid = false;
-      }
-      if (empty($price)) {
-        $priceError = 'Please enter price';
-        $valid = false;
-      }
-
-
-      // insert data
-      if ($valid) {
-        try {
-          $pdo = Database::connect();
-          $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $sql = "INSERT INTO product (name,description,price) values(?, ?, ?)";
-          $q = $pdo->prepare($sql);
-          $q->execute(array($name,$description,$price));
-
-	 $productID = $pdo->lastInsertId();
-	 
-	 $sql = "INSERT INTO product_bin (product_FK,bin_FK) values(?, ?)";
-	 $q = $pdo->prepare($sql);
-	 $q->execute(array($productID,$bin_FK));
-          Database::disconnect();
-         header("Location: admin.php");
-        }
-         catch (PDOException $e) {
-          echo $e->getMessage();
-        }
-      }
-   }
-
+      $createProduct = new ProductCrud($_SESSION['uid']);
+     $response = $createProduct->create($name,$description,$price,$bin_FK);
+  
+if ($response) {
+    header("Location: admin.php");
+  } else {
+    header("Location: admin.php");
+  }
+}
 ?>
 
 <!DOCTYPE html>
