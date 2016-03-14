@@ -170,7 +170,8 @@ Database::connect();
                 echo '<td><input type="submit" value="Delete"></td>';
                 echo '</form>';
                 echo '</tr>';
-          	}
+          	
+		}
 	    
 	         
           ?>
