@@ -10,9 +10,10 @@ require_once('crud.php');
       $description = $_POST['description'];
       $price = $_POST['price'];
       $bin_FK = $_POST['bin_FK'];
+      $category_FK = $_POST['category_FK'];
 	
       $createProduct = new ProductCrud($_SESSION['uid']);
-     $response = $createProduct->create($name,$description,$price,$bin_FK);
+     $response = $createProduct->create($name,$description,$price,$bin_FK,$category_FK);
   
 if($response) {
     header("Location: admin.php");
@@ -90,7 +91,25 @@ if($response) {
              Database::disconnect(); 
             }
           ?>
+	<br><br><br>
 
+	<?php
+            try {
+              $pdo = Database::connect();
+              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $sql = "SELECT `category`.`id`, `category`.`name` FROM `category`";
+              $cat = $pdo->query($sql);
+              echo "<select name='category_FK'>";
+              foreach ($cat as $row) {
+                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+              }
+              echo "</select>";
+        //      Database::disconnect();
+            } catch (PDOException $e) {
+              echo $e->getMessage();
+             Database::disconnect();
+            }
+          ?>
 
 
 		<br><br><br>

@@ -376,15 +376,15 @@ class ProductCrud {
 	public function __construct($user_id){
 		$this->user_id = $user_id;
 	}
-	public function create($name,$description,$price,$bin_FK){
-		if (!valid($name) || !valid($description) || !valid($price) || !valid($bin_FK)) {
+	public function create($name,$description,$price,$bin_FK,$category_FK){
+		if (!valid($name) || !valid($description) || !valid($price) || !valid($bin_FK) || !valid($category_FK)) {
 			return false;
 		} else {
 			try{
 			$pdo = Database::connect();
-			$sql = "INSERT INTO product (name,description,price,bin_FK) values(?, ?, ?, ?)";
+			$sql = "INSERT INTO product (name,description,price,bin_FK,category_FK) values(?, ?, ?, ?, ?)";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($name,$description,$price,$bin_FK));
+			$q->execute(array($name,$description,$price,$bin_FK,$category_FK));
 			$product_id = $pdo->lastInsertId();
 			
 			$sql = "INSERT INTO product_bin (product_FK,bin_FK) values(?, ?)";
@@ -414,14 +414,14 @@ class ProductCrud {
 			
 		}
     }
-	public function update($name,$description,$price,$bin_FK,$product_id){
-		if (!valid($name) || !valid($description) || !valid($price) || !valid($bin_FK)) {
+	public function update($name,$description,$price,$bin_FK,$category_FK,$product_id){
+		if (!valid($name) || !valid($description) || !valid($price) || !valid($bin_FK) || !valid($category_FK)) {
 			return false;
 		} else {
 			$pdo = Database::connect();
-			$sql = "UPDATE product SET name = ?, description = ?, price = ?, bin_FK = ? WHERE id = ?";
+			$sql = "UPDATE product SET name = ?, description = ?, price = ?, bin_FK = ?, category_FK = ? WHERE id = ?";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($name,$description,$price,$bin_FK,$product_id));
+			$q->execute(array($name,$description,$price,$bin_FK,$category_FK,$product_id));
 			Database::disconnect();
 			return true;
 		}
@@ -431,6 +431,67 @@ class ProductCrud {
         $sql = "DELETE FROM product WHERE id = ?"; 
         $q = $pdo->prepare($sql);
         $q->execute(array($product_id));
+        Database::disconnect();
+        return true;
+	}
+}
+
+
+
+
+
+
+//CATEGORY CRUD
+class CategoryCrud {	
+	public $user_id;
+	public function __construct($user_id){
+		$this->user_id = $user_id;
+	}
+	public function create($name){
+		if (!valid($name)) {
+			return false;
+		} else {
+			$pdo = Database::connect();
+			$sql = "INSERT INTO category (name) values(?)";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($name));
+			$category_id = $pdo->lastInsertId();
+			Database::disconnect();
+			return true;
+		}	
+	}
+	public function read(){
+		try{
+			$pdo = Database::connect();
+			$sql = 'SELECT * FROM category ORDER BY id';
+			$q = $pdo->prepare($sql);
+			$q->execute(array($this->user_id));
+			$data = $q->fetchAll(PDO::FETCH_ASSOC);
+	         Database::disconnect();
+	        return $data;
+		} catch (PDOException $error){
+			header( "Location: 500.php" );
+			//echo $error->getMessage();
+			
+		}
+    }
+	public function update($name,$category_id){
+		if (!valid($name)) {
+			return false;
+		} else {
+			$pdo = Database::connect();
+			$sql = "UPDATE category SET name = ? WHERE id = ?";
+			$q = $pdo->prepare($sql);
+			$q->execute(array($name,$category_id));
+			Database::disconnect();
+			return true;
+		}
+	}
+	public function delete($category_id){
+        $pdo = Database::connect();
+        $sql = "DELETE FROM category WHERE id = ?"; 
+        $q = $pdo->prepare($sql);
+        $q->execute(array($category_id));
         Database::disconnect();
         return true;
 	}

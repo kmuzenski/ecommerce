@@ -22,6 +22,56 @@ Database::connect();
 </div>
 <br><br><br>
 
+
+<p><a href="createCategory.php">Create a category</a></p>
+<br><br>
+<div class="container">
+    <div class="row">
+      <h3>Update Category info</h3>
+    </div>
+    <div class="row">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>Action</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+	<?php
+            $category = new CategoryCrud($_SESSION['uid']);
+                
+                foreach ($category->read() as $row) {
+                 echo '<tr>';
+                echo '<form method="POST" action="updateCategory.php">';
+                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
+		
+		
+                echo '<td><input type="submit" value="Update"></td>';
+                echo '</form>';
+                echo '<form method="POST" action="categoryDelete.php">';
+                echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                echo '<td><input type="submit" value="Delete"></td>';
+                echo '</form>';
+                echo '</tr>';
+          
+                }
+        
+          ?>
+
+
+
+        </tbody>
+      </table>
+    </div>
+</div>
+
+
+
+
+
 <p><a href="createProduct.php">Create a product</a></p>
 <br><br>
 <div class="container">
@@ -36,6 +86,7 @@ Database::connect();
             <th>description</th>
             <th>price</th>
 	    <th>bin</th>
+	    <th>category</th>
             <th>Action</th>
             <th>Action</th>
           </tr>
@@ -70,6 +121,28 @@ Database::connect();
                 echo "</select>";
                 echo "</td>";   
 		
+		 echo '<td>';
+                $pdo = Database::connect();
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $sql = "SELECT * FROM  `category` ORDER BY `name` ASC";
+                $cat = $pdo->query($sql);
+                Database::disconnect();
+                echo "<select name='category_FK'>";
+                foreach ($cat as $row3) {
+                  echo "<option value='" . $row3['id'] . "'";
+                  if($row3['id']==$row['category_FK']){
+                        echo " selected ";
+                  }
+                  echo ">" . $row3['name'] . "</option>";
+
+                }
+
+                echo "</select>";
+                echo "</td>";
+
+
+
+
                 echo '<td><input type="submit" value="Update"></td>';
                 echo '</form>';
                 echo '<form method="POST" action="productDelete.php">';
