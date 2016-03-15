@@ -7,8 +7,11 @@ Database::connect();
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
+<link rel="stylesheet" type"text/css" href="../assets/css/styles.css">
+
 <title>Your Admin Page</title>
-<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 </head>
 <body>
 <?php require_once('nav.php'); 
@@ -265,7 +268,6 @@ Database::connect();
 <?php require_once('footer.php');
 Database::disconnect();
 ?>
-
 
 
 </body>

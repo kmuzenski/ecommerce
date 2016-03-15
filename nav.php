@@ -4,7 +4,7 @@
 		<div class="container">
         	<div class="navbar-header">
           
-		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
             		<span class="sr-only">Toggle navigation</span>
             		<span class="icon-bar"></span>
             		<span class="icon-bar"></span>
@@ -19,8 +19,18 @@
             
 		<li><a href="index.php">Home</a></li>
 
-		<li><a href="products.php">Products</a></li>
-           	
+		<li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Products<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Inbox</a></li>
+                <li><a href="#">Drafts</a></li>
+                <li><a href="#">Sent Items</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Trash</a></li>
+            </ul>
+        </li>
+
+
 		<li><a href="register.php">Register</a></li>
          
 		<li><a href="loginpage.php">Login</a></li>
