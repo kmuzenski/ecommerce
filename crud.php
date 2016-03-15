@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL);
 // helper function for validation
 
 
@@ -380,6 +380,7 @@ class ProductCrud {
 		if (!valid($name) || !valid($description) || !valid($price) || !valid($bin_FK)) {
 			return false;
 		} else {
+			try{
 			$pdo = Database::connect();
 			$sql = "INSERT INTO product (name,description,price,bin_FK) values(?, ?, ?, ?)";
 			$q = $pdo->prepare($sql);
@@ -391,7 +392,11 @@ class ProductCrud {
 
 			Database::disconnect();
 			return true;
-		}
+			} catch(PDOException $error) {
+			echo $error->getMessage();
+			}
+		}	
+
 	}
 	public function read(){
 		try{
