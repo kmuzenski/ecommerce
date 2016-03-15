@@ -4,12 +4,14 @@
   require_once('crud.php');
  
   if ( !empty($_POST['id']) && isset($_POST['id'])) {
-    $product = new ProuctCrud($_SESSION['uid']);
+    $product = new ProductCrud($_SESSION['uid']);
     $response = $product->delete($_POST['id']);
     if($response){
     //  echo "success";
-	header("Location: update.php");
+	header("Location: admin.php");
     } else {
       echo "failure";
     }
-  } 
+  } else {
+	echo "didnt get param";
+} 

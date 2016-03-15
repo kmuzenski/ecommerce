@@ -385,7 +385,8 @@ class ProductCrud {
 			$sql = "INSERT INTO product (name,description,price,bin_FK) values(?, ?, ?, ?)";
 			$q = $pdo->prepare($sql);
 			$q->execute(array($name,$description,$price,$bin_FK));
-			$product_id = $pdo->lastInstertId();
+			$product_id = $pdo->lastInsertId();
+			
 			$sql = "INSERT INTO product_bin (product_FK,bin_FK) values(?, ?)";
 			$q = $pdo->prepare($sql);
 			$q->execute(array($product_id,$bin_FK));
@@ -413,7 +414,7 @@ class ProductCrud {
 			
 		}
     }
-	public function update($name,$description,$price,$bin_FK){
+	public function update($name,$description,$price,$bin_FK,$product_id){
 		if (!valid($name) || !valid($description) || !valid($price) || !valid($bin_FK)) {
 			return false;
 		} else {
