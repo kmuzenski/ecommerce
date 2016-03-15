@@ -376,7 +376,7 @@ class ProductCrud {
 	public function __construct($user_id){
 		$this->user_id = $user_id;
 	}
-	public function create($name, $description, $price, $bin_FK){
+	public function create($name,$description,$price,$bin_FK){
 		if (!valid($name) || !valid($description) || !valid($price) || !valid($bin_FK)) {
 			return false;
 		} else {
@@ -385,7 +385,7 @@ class ProductCrud {
 			$q = $pdo->prepare($sql);
 			$q->execute(array($name,$description,$price,$bin_FK));
 			$product_id = $pdo->lastInstertId();
-			$sql = "INSERT INTO product_bin (product_FK, bin_FK) values(?, ?)";
+			$sql = "INSERT INTO product_bin (product_FK,bin_FK) values(?, ?)";
 			$q = $pdo->prepare($sql);
 			$q->execute(array($product_id,$bin_FK));
 
@@ -400,7 +400,7 @@ class ProductCrud {
 			$q = $pdo->prepare($sql);
 			$q->execute(array($this->user_id));
 			$data = $q->fetchAll(PDO::FETCH_ASSOC);
-	        Database::disconnect();
+	         Database::disconnect();
 	        return $data;
 		} catch (PDOException $error){
 			header( "Location: 500.php" );
@@ -415,7 +415,7 @@ class ProductCrud {
 			$pdo = Database::connect();
 			$sql = "UPDATE product SET name = ?, description = ?, price = ?, bin_FK = ? WHERE id = ?";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($name,$description,$price,$bin_FK,$id));
+			$q->execute(array($name,$description,$price,$bin_FK,$product_id));
 			Database::disconnect();
 			return true;
 		}

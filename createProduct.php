@@ -14,8 +14,9 @@ require_once('crud.php');
       $createProduct = new ProductCrud($_SESSION['uid']);
      $response = $createProduct->create($name,$description,$price,$bin_FK);
   
-if ($response) {
+if($response) {
     header("Location: admin.php");
+  
   } else {
     header("Location: admin.php");
   }
@@ -70,23 +71,29 @@ if ($response) {
               <?php endif;?>
             </div>
             </div>
+		<br><br><br>
+		
+		<?php
+            try {
+              $pdo = Database::connect();
+              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $sql = "SELECT `bin`.`id`, `bin`.`name` FROM `bin`";
+              $bin = $pdo->query($sql);
+              echo "<select name='bin_FK'>";
+              foreach ($bin as $row) {
+                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+              }
+              echo "</select>";
+	//	Database::disconnect();
+            } catch (PDOException $e) {
+              echo $e->getMessage();
+             Database::disconnect(); 
+            }
+          ?>
 
 
 
-			<label class="control-label">Bin ID</label>
-                      
-                        <select name="id">
-                            <?php
-                                $pdo = Database::connect();
-                                $sql = 'SELECT * FROM bin ORDER BY id DESC';                         
-                                   foreach ($pdo->query($sql) as $row) {
-                                            echo '<option name="id" value="' . $row["id"] . '">' . $row["id"] . '</option>';
-                                  }
-                                   Database::disconnect();
-                                  ?>
-                        </select>
-			<br><br>
-
+		<br><br><br>
           <div class="form-actions">
             <button type="submit" class="btn btn-success">Add Product</button>
           </div>
