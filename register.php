@@ -22,14 +22,10 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
 
-   <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 
-</head>
-
+<?php require_once('header.php'); ?>
 
 <body>
 

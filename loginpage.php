@@ -4,13 +4,9 @@
 
 <!DOCTYPE html>
 <html>
-<head>
 
-	<title>Login Form</title>
 
-	<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-</head>
-
+<?php require_once('header.php'); ?>
 
 <body>
 	<?php require_once('nav.php'); ?>

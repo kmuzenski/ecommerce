@@ -6,14 +6,9 @@
 
 
 <!DOCTYPE html>
+<html>
 
-<head>
-<link rel="stylesheet" type"text/css" href="assets/css/styles.css">
-
-<title>Update</title>
-<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-</head>
-
+<?php require_once('header.php'); ?>
 <body>
 
 <?php require_once('nav.php');

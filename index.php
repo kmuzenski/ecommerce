@@ -2,11 +2,8 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-</head>
+<html>
+<?php require_once('header.php'); ?>
 <body>
 
 

@@ -6,13 +6,7 @@ Database::connect();
 ?>
 <!DOCTYPE html>
 <html>
-<html lang="en">
-
-<head>
-<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
-<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-</head>
+<?php require_once('header.php'); ?>
 <body>
 <?php require_once('nav.php'); 	?>
 <br><br><br><br><br><br>
@@ -268,7 +262,5 @@ Database::connect();
 Database::disconnect();
 ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
 </body>
 </html>
