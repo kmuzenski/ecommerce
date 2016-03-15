@@ -8,8 +8,7 @@
     $bin = new BinCrud($_SESSION['uid']);
     $response = $bin->delete($_POST['id']);
     if($response){
-    //  echo "success";
-	header("location: admin.php");
+   	header("Location: admin.php");
     } else {
       echo "failure";
     }

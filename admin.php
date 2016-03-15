@@ -7,15 +7,12 @@ Database::connect();
 <!DOCTYPE html>
 <html>
 <head>
-
-<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
-<link rel="stylesheet" type"text/css" href="../assets/css/styles.css">
-
-<title>Your Admin Page</title>
+<link rel="stylesheet" type"text/css" href="assets/css/styles.css">
+<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 <body>
-<?php require_once('nav.php'); 
-	?>
+<?php require_once('nav.php'); 	?>
 <br><br><br><br><br><br>
 
 <div id="profile">
@@ -269,6 +266,7 @@ Database::connect();
 Database::disconnect();
 ?>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 </body>
 </html>

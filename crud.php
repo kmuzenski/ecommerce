@@ -352,7 +352,7 @@ class BinCrud {
 			return false;
 		} else {
 			$pdo = Database::connect();
-			$sql = "UPDATE bin SET name = ?, location = ?, shipmentcenter_FK = ?,  WHERE id = ?";
+			$sql = "UPDATE bin SET name = ?, location = ?, shipmentcenter_FK = ?  WHERE id = ?";
 			$q = $pdo->prepare($sql);
 			$q->execute(array($name,$location,$shipmentcenter_FK,$bin_id));
 			Database::disconnect();
@@ -361,7 +361,7 @@ class BinCrud {
 	}
 	public function delete($bin_id){
         $pdo = Database::connect();
-        $sql = "DELETE FROM bin_shipment WHERE bin_FK = ?"; 
+        $sql = "DELETE FROM `ecomm`.`bin` WHERE `bin`.`id` = ?"; 
         $q = $pdo->prepare($sql);
         $q->execute(array($bin_id));
         Database::disconnect();

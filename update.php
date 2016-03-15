@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 
 <head>
-
+<link rel="stylesheet" type"text/css" href="assets/css/styles.css">
 
 <title>Update</title>
 <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
