@@ -20,7 +20,17 @@
 </center>
 <br><br><br>
 
+
+
+
+
+
 <div class="container">
+	<div class ="row">
+	<h3>User Details</h3>
+	<p>Update User Details</p>
+	</div>
+
     <div class="row">
       <table class="table table-striped table-bordered">
         <thead>
@@ -118,11 +128,11 @@
 
 
 
-<p><a href="createPayment.php">create a payment method</a></p>
 <div class="container">
     <div class="row">
       <h3>Credit Cards</h3>
-    </div>
+   <p><a href="createPayment.php">create a payment method</a></p>
+	 </div>
 
 
 

@@ -10,15 +10,10 @@ Database::connect();
 <body>
 <?php require_once('nav.php'); 	?>
 <br><br><br><br><br><br>
-
-<div id="profile">
-<b id="welcome">Welcome : <i><?php echo $_SESSION['username']; ?></i></b>
-<b id="logout"><a href="logout.php">Log Out</a></b><br><br>
-<a href="update.php">update admin profile</a>
-</div>
+<center>
+<h1> Admin Functions </h1>
+</center>
 <br><br><br>
-
-
 <p><a href="createCategory.php">Create a category</a></p>
 <br><br>
 <div class="container">
