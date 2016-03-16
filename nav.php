@@ -1,17 +1,20 @@
-	<nav class="navbar navbar-default navbar-fixed-top">
+
+<nav class="navbar navbar-default navbar-fixed-top">
       	
-		<div class="container">
-        	<div class="navbar-header">
+	<div class="container">
+    <div class="navbar-header">
           
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-            		<span class="icon-bar"></span>
-            		<span class="icon-bar"></span>
-            		<span class="icon-bar"></span>
-          		</button>
-         		</div>
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+         	<span class="sr-only">Toggle navigation</span>
+         	<span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+         		
+     </div>
 
          
-	 <div class="collapse navbar-collapse" id="navbar">
+	 <div id="navbar" class="collapse navbar-collapse">
           	
 		<ul class="nav navbar-nav">
             
@@ -22,9 +25,11 @@
 		require_once('database.php');
 		$pdo = Database::connect();
          	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        	$sql = 'SELECT id, name FROM category ORDER BY name ASC';
+        	$sql = "SELECT id, name FROM category ORDER BY name ASC";
+		
 		echo '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="category.php">Categories<span class="caret"></span></a>';
-         	 echo '<ul class="dropdown-menu">';
+        echo '<ul class="dropdown-menu">';
+          	
           	foreach ($pdo->query($sql) as $category) {
             	echo '<li id="' . $category['name'] . '">';
               	echo '<a href="category.php?id=' . $category['id'] . '">';
@@ -35,6 +40,7 @@
           }
           echo '</ul>';
           echo '</li>';	
+
 		Database:disconnect();
 	
 		 ?>          		  					
@@ -57,7 +63,7 @@
 		<?php } ?>
 
 	   
-	</ul>
+			</ul>
         	</div>
       	</div>
     	</nav>
