@@ -10,7 +10,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-         		
+         <a class="navbar-brand" href="index.html"><img src="assets/img/liplogo.png" width="50"></a>		
      </div>
 
          
@@ -25,10 +25,10 @@
 		require_once('database.php');
 		$pdo = Database::connect();
          	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        	$sql = "SELECT id, name FROM category ORDER BY name ASC";
+        	$sql = "SELECT * FROM category ORDER BY name ASC";
 		
-		echo '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="category.php">Categories<span class="caret"></span></a>';
-        echo '<ul class="dropdown-menu">';
+		echo '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">Products<span class="caret"></span></a>';
+        	echo '<ul class="dropdown-menu">';
           	
           	foreach ($pdo->query($sql) as $category) {
             	echo '<li id="' . $category['name'] . '">';
@@ -37,11 +37,11 @@
               	echo '</a>';
             	echo '</li>';
             
-          }
-          echo '</ul>';
-          echo '</li>';	
+          	}
+          	echo '</ul>';
+         	 echo '</li>';	
 
-		Database:disconnect();
+		Database::disconnect();
 	
 		 ?>          		  					
             				
