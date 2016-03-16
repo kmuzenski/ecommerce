@@ -11,28 +11,25 @@
 <br><br><br><br><br><br>
 
 
-
-<h1>Home Page</h1>
+<center>
+<h1>Welcome Home &nbsp;<i><?php echo $_SESSION['username']; ?></i>
+</h1>
+</center>
 <br><br><br><br>
 
-<div>
-<?php
-          if ($loggedin) {
-            echo "You are logged in.";
-            echo '<form method="POST" action="update.php">';
-            echo '<input type="submit" value="update">';
-            echo '</form>';
-	    echo '<a href="logout.php">logout</a>';
-          
-          } else {
-            echo "You are logged out.";
-          }
-        ?>
 
-</div>
+
+
+
+
+
+
+
+
+
 <br><br><br><br><br>
 
-
+<b id="logout"><a href="logout.php">Log Out</a></b><br><br>
 <?php require_once('footer.php'); ?>
   </body>
 </html>

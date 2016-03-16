@@ -15,11 +15,12 @@
 ?>
 <br><br><br><br><br><br>
 
+<center>
+      <h1>Update User Information</h1>
+</center>
+<br><br><br>
 
 <div class="container">
-    <div class="row">
-      <h3>Update User Info</h3>
-    </div>
     <div class="row">
       <table class="table table-striped table-bordered">
         <thead>
@@ -58,11 +59,11 @@
 
 
 
- <p><a href="createAddress.php">create an address</a></p>
 <div class="container">
     <div class="row">
       <h3>Address</h3>
-    </div>
+   	<p><a href="createAddress.php">Add an Address</a></p>
+	 </div>
 
 
 
