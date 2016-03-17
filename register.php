@@ -12,7 +12,7 @@
     $userCreate = new UserCrud();
     $response = $userCreate->create($username,$email,$password);
     
-    $userCart = new Cart($_SESSION['uid']);
+    $userCart = new Cart();
     $cart = $userCart->createCart();
 
 

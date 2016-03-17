@@ -513,23 +513,32 @@ class Cart {
 	public $cart_id; 
 		
 	public function __construct() {
-		$this->user_id = $_SESSION['uid'];
+	try {	$this->user_id = $_SESSION['uid'];
 		$pdo = Database::connect();
 		$sql = 'SELECT * FROM transaction WHERE user_FK = ? AND cart = ?';
 		$q = $pdo->prepare($sql);
 		$q->execute(array($this->user_id,1));
 		$cart = $q->fetch(PDO::FETCH_ASSOC);
 		$this->cart_id = $cart['id'];
-		Database::disconnect();
+	//	Database::disconnect();
+	} catch (PDOException $e) {
+		echo $e->getMessage();
 	}
+Database::disconnect();
+}
 
 public function createCart() {
+	try{
 		$pdo = Database::connect();
 		$sql = "INSERT INTO transaction (user_FK) values(?)";
 		$q = $pdo->prepare($sql);
 		$q->execute(array($this->user_id));
-		Database::disconnect();
+	//	Database::disconnect();
+	} catch (PDOException $e) {
+		echo $e->getMessage();
 	}
+Database::disconnect();
+}
 
 
 
