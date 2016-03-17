@@ -17,10 +17,26 @@
 </center>
 <br><br><br><br>
 
+<div class="container">
+
+    <div class="row">
+
+    <div class="col-xs-6 col-md-6">
+
+	<img src="assets/img/whatsnew.png" width="500">
+	
+     </div>
+
+	<div class="col-xs-6 col-md-6">
+
+	<img src="assets/img/trending.png" width="500">
+	
+	</div>
 
 
+</div>
 
-
+</div>
 
 
 

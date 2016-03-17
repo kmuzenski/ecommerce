@@ -26,13 +26,13 @@ if($response) {
 
 <!DOCTYPE html>
 <html lang="en">
- <head>
 
+<?php require_once('header.php'); ?>
 
-    <title>create product</title>
- </head>
 
   <body>
+<?php require_once('nav.php'); ?>
+
 <br><br><br><br><br><br>
 
     <div class="container">

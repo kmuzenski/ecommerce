@@ -8,9 +8,7 @@ echo "you have been logged out";
 
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="assets/css/boostrap.css">
-</head>
+<?php require_once('header.php'); ?>
 <body>
 <?php require_once('nav.php'); ?>
 <br><br><br><br><br><br>

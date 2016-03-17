@@ -26,13 +26,13 @@ if ($response) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
- <head>
 
 
-    <title> create shipmentcenter</title>
- </head>
+<?php require_once('header.php'); ?>
 
   <body>
+
+<?php require_once('nav.php'); ?>
 <br><br><br><br><br><br>
 
     <div class="container">

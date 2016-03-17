@@ -11,11 +11,20 @@
        
     $userCreate = new UserCrud();
     $create = $userCreate->create($username,$email,$password);
-    if ($create) {
-      header('Location: loginpage.php');
+ 
+    $userCart = new Cart();
+    $transaction = $userCart->createCart();
+
+
+   if ($create) {
+     if ($transaction) {
+	 header('Location: loginpage.php');
     } else {
       header('Location: loginpage.php');
     }
+    
+    }
+
 }
 ?>
 
