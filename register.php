@@ -10,14 +10,14 @@
     $password = $_POST['password'];
        
     $userCreate = new UserCrud();
-    $create = $userCreate->create($username,$email,$password);
- 
-    $userCart = new Cart();
-    $transaction = $userCart->createCart();
+    $response = $userCreate->create($username,$email,$password);
+    
+    $userCart = new Cart($_SESSION['uid']);
+    $cart = $userCart->createCart();
 
 
-   if ($create) {
-     if ($transaction) {
+   if ($response) {
+     if ($cart) {
 	 header('Location: loginpage.php');
     } else {
       header('Location: loginpage.php');

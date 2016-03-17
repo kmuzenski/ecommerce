@@ -1,4 +1,5 @@
 <?php
+require_once('session.php');
 error_reporting(E_ALL);
 // helper function for validation
 
@@ -509,16 +510,16 @@ class CategoryCrud {
 
 class Cart {
 	public $user_id;
-	public $trans_id; 
+	public $cart_id; 
 		
 	public function __construct() {
-		$this->user_id = $_SESSION['id'];
+		$this->user_id = $_SESSION['uid'];
 		$pdo = Database::connect();
 		$sql = 'SELECT * FROM transaction WHERE user_FK = ? AND cart = ?';
 		$q = $pdo->prepare($sql);
 		$q->execute(array($this->user_id,1));
 		$cart = $q->fetch(PDO::FETCH_ASSOC);
-		$this->trans_id = $cart['id'];
+		$this->cart_id = $cart['id'];
 		Database::disconnect();
 	}
 
@@ -531,6 +532,8 @@ public function createCart() {
 	}
 
 
+
+/*
 public function fetchCart() {
 		$products = array();
 		$pdo = Database::connect();
@@ -548,7 +551,9 @@ public function fetchCart() {
 		Database::disconnect();
 		return $products;
 	}
-	public function addToCart($product_FK) {
+*/
+
+/*	public function addToCart($product_FK) {
 		echo $product_FK;
 		echo $this->trans_id;
 		$pdo = Database::connect();
@@ -558,7 +563,9 @@ public function fetchCart() {
 		Database::disconnect();
 		return true;
 	}
-	public function updateQuantity($quantity,$productTransID) {
+*/
+
+/*	public function updateQuantity($quantity,$productTransID) {
 		if (!valid($quantity)) {
 			return false;
 		} else {
@@ -570,7 +577,9 @@ public function fetchCart() {
 			return true;
 		}
 	}
-	public function deleteFromCart($productTransID) {
+*/
+
+/*	public function deleteFromCart($productTransID) {
         $pdo = Database::connect();
         $sql = "DELETE FROM `ecommerce`.`transaction_product` WHERE `id` = ?";
         $q = $pdo->prepare($sql);
@@ -578,4 +587,5 @@ public function fetchCart() {
         Database::disconnect();
         return true;
 	}
+*/
 }
