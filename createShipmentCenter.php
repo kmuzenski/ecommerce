@@ -16,12 +16,9 @@ require_once('crud.php');
 if ($response) {
     header("Location: admin.php");
   } else {
-   // header("Location: admin.php");
-   echo "didnt work"; }
+    header("Location: admin.php");
+ }
 }
-
-
-
 
 ?>
 <!DOCTYPE html>

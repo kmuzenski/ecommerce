@@ -21,9 +21,6 @@ class UserCrud {
 
 
 
-	public function __construct($user_id){
-		$this->user_id = $user_id;
-	}
 
 	public function create($username, $email, $password){
 		if (!valid($username) || !valid($email) || !valid($password)) {
@@ -37,7 +34,7 @@ class UserCrud {
 
 
 			Database::disconnect();
-			return true;
+			return $pdo->lastInsertId();
 		}
 	}
 
@@ -253,22 +250,24 @@ class ShipmentCenter {
 	public function __construct($user_id){
 		$this->user_id = $user_id;
 	}
-	public function create($name, $address_FK){
-		if (!valid($street) || !valid($address_FK)) {
+	public function create($name,$address_FK){
+		if (!valid($name) || !valid($address_FK)) {
 			return false;
 		} else {
 			$pdo = Database::connect();
 			$sql = "INSERT INTO shipmentcenter (name,address_FK) values(?, ?)";
 			$q = $pdo->prepare($sql);
 			$q->execute(array($name,$address_FK));
-			$shipment_id = $pdo->lastInstertId();
-
+			$shipment_id = $pdo->lastInsertId();
+		
 
 
 			Database::disconnect();
 			return true;
+
+			}
 		}
-	}
+
 
 	public function read(){
 		try{
@@ -512,15 +511,22 @@ class Cart {
 	public $user_id;
 	public $cart_id; 
 		
-	public function __construct() {
-	try {	$this->user_id = $_SESSION['uid'];
+	public function __construct($user_id) {
+		$this->user_id = $user_id;
+	}	
+		
+
+	public function getCartID() {
+		try {
 		$pdo = Database::connect();
+		
 		$sql = 'SELECT * FROM transaction WHERE user_FK = ? AND cart = ?';
 		$q = $pdo->prepare($sql);
 		$q->execute(array($this->user_id,1));
 		$cart = $q->fetch(PDO::FETCH_ASSOC);
 		$this->cart_id = $cart['id'];
 	//	Database::disconnect();
+		return $this->cart_id;
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
@@ -530,71 +536,39 @@ Database::disconnect();
 public function createCart() {
 	try{
 		$pdo = Database::connect();
-		$sql = "INSERT INTO transaction (user_FK) values(?)";
+		$sql = "INSERT INTO transaction (user_FK,cart) values(?, 1)";
 		$q = $pdo->prepare($sql);
 		$q->execute(array($this->user_id));
 	//	Database::disconnect();
+		return $pdo->lastInsertId();
 	} catch (PDOException $e) {
 		echo $e->getMessage();
-	}
+}
 Database::disconnect();
 }
 
 
-
-/*
-public function fetchCart() {
-		$products = array();
-		$pdo = Database::connect();
-		$sql = 'SELECT * FROM transaction_product WHERE trans_FK = ?';
+public function getCart() {
+		$shoppingBag = array();
+		$pdo = Database:: connect()
+		$sql = 'SELECT * FROM transaction_product WHERE transaction_FK = ?';
 		$q = $pdo->prepare($sql);
-		$q->execute(array($this->trans_id));
-		$product_IDS = $q->fetchAll(PDO::FETCH_ASSOC);
-		foreach ($product_IDS as $pid => $item) {
+		$q->execute(array($this->cart_id));
+		$shoppingBag_id = $q->fetchAll(PDO::FETCH_ASSOC);
+
+		foreach ($shoppingBag_id as $bid => $item) {
 			$sql = 'SELECT * FROM product WHERE id = ?';
 			$q = $pdo->prepare($sql);
 			$q->execute(array($item['product_FK']));
 			$product = $q->fetch(PDO::FETCH_ASSOC);
-			array_push($products, array("id"=>$item['id'], "product_FK"=>$item['product_FK'], "quantity"=>$item['quantity'], "name"=>$product['name'], "price"=>$product['price'], "description"=>$product['description']));
+			array_push($shoppingBag, array("id"=>$item['id'], "product_FK"=>$item['product_FK'], "quantity"=>$item['quantity'], "name"=>$product['name'], "description"=>$product['description'], "price"=>$product['price']));
 		}
 		Database::disconnect();
-		return $products;
-	}
-*/
+		return $shoppingBag;
 
-/*	public function addToCart($product_FK) {
-		echo $product_FK;
-		echo $this->trans_id;
-		$pdo = Database::connect();
-		$sql = "INSERT INTO transaction_product (trans_FK, product_FK, quantity) values(?, ?, ?)";
-		$q = $pdo->prepare($sql);
-		$q->execute(array($this->trans_id,$product_FK, 1));
-		Database::disconnect();
-		return true;
-	}
-*/
-
-/*	public function updateQuantity($quantity,$productTransID) {
-		if (!valid($quantity)) {
-			return false;
-		} else {
-			$pdo = Database::connect();
-			$sql = "UPDATE transaction_product SET quantity = ? WHERE id = ?";
-			$q = $pdo->prepare($sql);
-        	$q->execute(array($quantity,$productTransID));
-			Database::disconnect();
-			return true;
 		}
-	}
-*/
 
-/*	public function deleteFromCart($productTransID) {
-        $pdo = Database::connect();
-        $sql = "DELETE FROM `ecommerce`.`transaction_product` WHERE `id` = ?";
-        $q = $pdo->prepare($sql);
-        $q->execute(array($productTransID));
-        Database::disconnect();
-        return true;
-	}
-*/
+
 }
+
+

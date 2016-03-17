@@ -46,10 +46,34 @@
 		 ?>          		  					
             				
 	
-
-		<li><a href="register.php">Register</a></li>
+		<?php
+		  if ($loggedin) {
+			echo '<li>';
+			echo '<a href="logout.php">';
+			echo "Logout";
+			echo '</a>';
+			echo '</li>';
+			 echo '<li>';
+                        echo '<a href="shoppingcart.php">';
+                        echo "Cart";
+                        echo '</a>';
+                        echo '</li>';
+		   } else {
+			echo '<li>';
+			echo '<a href="loginpage.php">';
+			echo "Login";
+			echo '</a>';
+			echo '</li>';
+			echo '<li>';
+			echo '<a href="register.php">';
+			echo "Register";
+			echo '</a>';
+			echo '</li>';
+		} 
+		?>
+			
+			
         
-		<li><a href="loginpage.php">Login</a></li>
 
 		<?php if( isset($_SESSION['permission']) && $_SESSION['permission'] == 2){?> 
 			<li><a href="profile.php">Profile</a></li>

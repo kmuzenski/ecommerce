@@ -10,22 +10,18 @@
     $password = $_POST['password'];
        
     $userCreate = new UserCrud();
-    $response = $userCreate->create($username,$email,$password);
-    
-    $userCart = new Cart();
-    $cart = $userCart->createCart();
+    $_SESSION['uid'] = $userCreate->create($username,$email,$password); 
+   
+   $userCart = new Cart($_SESSION['uid']);
+    $_SESSION['cart_id'] = $userCart->createCart();
 
 
-   if ($response) {
-     if ($cart) {
-	 header('Location: loginpage.php');
-    } else {
-      header('Location: loginpage.php');
+	 header('Location: index.php');
     }
     
-    }
+    
 
-}
+
 ?>
 
 
