@@ -45,7 +45,6 @@
 
 <br><br><br><br><br>
 
-<b id="logout"><a href="logout.php">Log Out</a></b><br><br>
 <?php require_once('footer.php'); ?>
   </body>
 </html>

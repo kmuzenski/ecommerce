@@ -18,7 +18,12 @@ function valid($varname){
 
 class UserCrud {	
 
+public $user_id;
 
+
+        public function __construct($user_id){
+                $this->user_id = $user_id;
+        }
 
 
 
@@ -38,7 +43,7 @@ class UserCrud {
 		}
 	}
 
-	public function read($user_id){
+	public function read(){
 		try{
 			$pdo = Database::connect();
 			$sql = 'SELECT * FROM users WHERE id = ?';
@@ -216,7 +221,7 @@ class UserCredit {
 
     }
 
-	public function update($name, $number, $expiration, $securitycode, $type, $address_FK){
+	public function update($name,$number,$expiration,$securitycode,$type,$address_FK,$credit_id){
 		if (!valid($name) || !valid($number) || !valid($expiration) || !valid($securitycode) || !valid($type) || !valid($address_FK)) {
 			return false;
 		} else {
@@ -548,24 +553,25 @@ Database::disconnect();
 }
 
 
-public function getCart() {
+public function getCart($cart_id) {
 		$shoppingBag = array();
 		$pdo = Database::connect();
 		$sql = 'SELECT * FROM transaction_product WHERE trans_FK = ?';
 		$q = $pdo->prepare($sql);
 		$q->execute(array($cart_id));
 		$shoppingBag_id = $q->fetchAll(PDO::FETCH_ASSOC);
-
-		foreach ($shoppingBag_id as $pid => $item) {
+		foreach ($shoppingBag_id as $item) {
 			$sql = 'SELECT * FROM product WHERE id = ?';
 			$q = $pdo->prepare($sql);
 			$q->execute(array($item['product_FK']));
 			$product = $q->fetch(PDO::FETCH_ASSOC);
-			array_push($shoppingBag, array("id"=>$item['id'], "product_FK"=>$item['product_FK'], "quantity"=>$item['quantity'], "name"=>$product['name'], "description"=>$product['description'], "price"=>$product['price']));
+		
+			$transaction = array("id"=>$item['id'], "product_FK"=>$item['product_FK'], "quantity"=>$item['quantity'], "name"=>$product['name'], "price"=>$product['price']);
+			
+			array_push($shoppingBag, $transaction);
 		}
 		Database::disconnect();
 		return $shoppingBag;
-
 		}
 
 
@@ -587,11 +593,44 @@ public function addToCart($cart_id,$product_FK) {
 		}
 		}
 
+public function updateQ($quantity,$productTransactionID) {
+		if (!valid($quantity)) {
+			return false;
+		} else {
+			$pdo = Database::connect();
+			$sql = "UPDATE transaction_product SET quantity = ? WHERE id = ?";
+			$q = $pdo->prepare($sql);
+        	$q->execute(array($quantity,$productTransactionID));
+			Database::disconnect();
+			return true;
+		}
+	}
+
+
+public function deleteFromCart($productTransactionID) {
+        $pdo = Database::connect();
+        $sql = "DELETE FROM `ecomm`.`transaction_product` WHERE `id` = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($productTransactionID));
+        Database::disconnect();
+        return true;
+	}
 
 
 
-
-
+public function Checkout() {
+/*	try {
+	$pdo = Database::connect();
+	$sql = "UPDATE transaction SET cart = ? WHERE id = ?";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(0,$cart_id);
+	Database::disconnect();
+	} catch (PDOException $e) {
+	echo $e->getMessage();
+	}
+	return $this->createCart();
+*/
+}
 
 
 }

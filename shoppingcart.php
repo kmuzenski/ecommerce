@@ -37,9 +37,8 @@ error_reporting(E_ALL);
 
 <?php
 	if($loggedin) {
-		$bag = new Cart($_SESSION['uid']);
-		 $bag->getCart();
-
+		$shoppingBag = new Cart($_SESSION['uid']);
+		 $bag = $shoppingBag->getCart($_SESSION['cart_id']);
 	foreach ($bag as $row) {
 		echo '<tr>';
 		echo '<form method="POST" action="updateQuantity.php">';
@@ -65,7 +64,7 @@ error_reporting(E_ALL);
 </div>
 </div>
 
-
+<h5>Proceed To <a href="checkout.php">Checkout</a></h5>
 
 <?php require_once('footer.php'); ?>
 

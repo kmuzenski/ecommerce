@@ -1,6 +1,7 @@
 <?php
 require_once('database.php');
-
+require_once('crud.php');
+require_once('session.php');
 
 	if(!empty($_POST['username']) && isset ($_POST['username'])) {
 		if(!empty($_POST['password']) && isset($_POST['password'])) {
@@ -26,7 +27,6 @@ require_once('database.php');
 	$permission = $query['permission'];
 	$uid = $query['id'];
 
-	session_start();
 	$_SESSION['username'] = $username;
 	$_SESSION['permission'] = $permission;
 	$_SESSION['uid'] = $uid;

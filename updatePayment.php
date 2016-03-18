@@ -21,7 +21,7 @@
   
 	
     
-/*	if ($response) {
+	if ($response) {
         header("Location: update.php");
      // echo "it worked";
 	} else {
@@ -29,7 +29,7 @@
 	echo "it didnt work";
 
       }
-*/
+
     }
 
 
