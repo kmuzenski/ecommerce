@@ -30,7 +30,8 @@ require_once('database.php');
 	$_SESSION['username'] = $username;
 	$_SESSION['permission'] = $permission;
 	$_SESSION['uid'] = $uid;
-
+	$cart = new Cart($_SESSION['uid']):
+	$_SESSION['cart_id'] = $cart->getCartID();
 	header('Location: index.php');
 	
 }

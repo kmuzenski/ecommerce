@@ -550,13 +550,13 @@ Database::disconnect();
 
 public function getCart() {
 		$shoppingBag = array();
-		$pdo = Database:: connect()
-		$sql = 'SELECT * FROM transaction_product WHERE transaction_FK = ?';
+		$pdo = Database::connect();
+		$sql = 'SELECT * FROM transaction_product WHERE trans_FK = ?';
 		$q = $pdo->prepare($sql);
-		$q->execute(array($this->cart_id));
+		$q->execute(array($cart_id));
 		$shoppingBag_id = $q->fetchAll(PDO::FETCH_ASSOC);
 
-		foreach ($shoppingBag_id as $bid => $item) {
+		foreach ($shoppingBag_id as $pid => $item) {
 			$sql = 'SELECT * FROM product WHERE id = ?';
 			$q = $pdo->prepare($sql);
 			$q->execute(array($item['product_FK']));
@@ -567,6 +567,31 @@ public function getCart() {
 		return $shoppingBag;
 
 		}
+
+
+
+
+public function addToCart($cart_id,$product_FK) {
+			echo $cart_id;
+			echo $product_FK;
+		try {
+		$pdo = Database::connect();
+		$sql = "INSERT INTO transaction_product (trans_FK,product_FK,quantity) values(?, ?, 1)";
+		$q = $pdo->prepare($sql);
+		$q->execute(array($cart_id,$product_FK));	
+		Database::disconnect();
+                return true;
+		} catch (PDOException $e) {
+
+		echo $e->getMessage();
+		}
+		}
+
+
+
+
+
+
 
 
 }

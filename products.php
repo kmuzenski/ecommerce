@@ -1,6 +1,7 @@
 <?php 
 require_once('session.php');
 require_once('database.php');
+require_once('crud.php');
  error_reporting(E_ALL);
 ?>
 <!DOCTYPE html>
