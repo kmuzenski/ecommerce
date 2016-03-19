@@ -23,7 +23,7 @@
 
     <div class="col-xs-6 col-md-6">
 
-	<img src="assets/img/whatsnew.png" width="500">
+<a href="newProducts.php"><img src="assets/img/whatsnew.png" width="500"></a>
 	
      </div>
 
