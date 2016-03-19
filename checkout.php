@@ -20,26 +20,47 @@
 <br><br><br><br>
 <h3>Customer Information</h3>
 <br><br>
-
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<p>info</p>
+</tr>
+</thead>
+<tbody>
 <?php
 
 	$user = new UserCrud($_SESSION['uid']);
-	$check = $user->read();
-
+	foreach ($user->read() as $row) {
+	echo '<tr>';
 	echo '<form method="POST" action="confirmOrder.php">';
-	echo '<input type="hidden" name="id" value="' . $check['id'] . '">';
-	echo ''.$check['username'].'';	
+	echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+	echo '<td>'.$row['username'].'</td>';	
+	echo '<td>'.$row['email'].'</td>';
+	}
+	echo '</tr>';		
+
 	echo '<br>';
-	echo ''.$check['email'].'';
+	echo '<br>';
+	
+	$address = new UserAddress($_SESSION['uid']);
+	foreach ($address->read() as $row2) {
 
-	?>
+	echo '<tr>';
+	echo '<inpute type="hidden" name="id" value ="' .$row2['id'] .' ">';
+	echo '<td>'.$row2['street'].'</td>';
+	echo '<td>'.$row2['city'].'</td>';
+	echo '<td>'.$row2['zip'].'</td>';
+	echo '<td>'.$row2['state'].'</td>';
+	echo '<td>'.$row2['country'].'</td>';
 
+}
+	  echo '</tr>';
 
-<?php
 echo '<input type="submit" value="Confirm Order">';
 echo '</form>';
 ?>
-
+</tbody>
+</table>
 </div>
  </div>
 

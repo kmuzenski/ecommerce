@@ -6,7 +6,6 @@ require_once('session.php');
 	if(!empty($_POST['username']) && isset ($_POST['username'])) {
 		if(!empty($_POST['password']) && isset($_POST['password'])) {
 
-		$pdo = Database::connect();
 
 
 
@@ -14,7 +13,7 @@ require_once('session.php');
 	$username=$_POST['username'];
 	$password=$_POST['password'];
 
-
+	  $pdo = Database::connect();
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$sql = "SELECT * FROM users WHERE username = ? AND password = ?";
 	$q = $pdo->prepare($sql);
@@ -30,8 +29,16 @@ require_once('session.php');
 	$_SESSION['username'] = $username;
 	$_SESSION['permission'] = $permission;
 	$_SESSION['uid'] = $uid;
-	$cart = new Cart($_SESSION['uid']):
+//	echo $username;
+//	echo $permission;
+//	echo $uid;
+//	die();
+
+	$cart = new Cart($_SESSION['uid']);
 	$_SESSION['cart_id'] = $cart->getCartID();
+	
+	//print_r($userCart);
+	//die();
 	header('Location: index.php');
 	
 }

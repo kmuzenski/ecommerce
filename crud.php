@@ -530,9 +530,8 @@ class Cart {
 		$q->execute(array($this->user_id,1));
 		$cart = $q->fetch(PDO::FETCH_ASSOC);
 		$this->cart_id = $cart['id'];
-	//	Database::disconnect();
 		return $this->cart_id;
-	} catch (PDOException $e) {
+		} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
 Database::disconnect();

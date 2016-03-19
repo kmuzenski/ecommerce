@@ -15,7 +15,6 @@
    $userCart = new Cart($_SESSION['uid']);
     $_SESSION['cart_id'] = $userCart->createCart();
 
-
 	 header('Location: index.php');
     }
     
