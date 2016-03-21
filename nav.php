@@ -75,7 +75,8 @@
 			
         
 
-		<?php if( isset($_SESSION['permission']) && $_SESSION['permission'] == 2){?> 
+		<?php 
+		if( isset($_SESSION['permission']) && $_SESSION['permission'] == 2){?> 
 			<li><a href="profile.php">Profile</a></li>
 			<li><a href="update.php">Update</a></li>
 		<?php } ?>

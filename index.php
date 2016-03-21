@@ -9,9 +9,11 @@
 
 <?php require_once('nav.php'); ?>
 <br><br><br><br><br><br>
-
-
 <center>
+<img src="assets/img/banner.png" width="500">
+
+<br><br><br><br>
+
 <h1>Welcome Home &nbsp;<i><?php echo $_SESSION['username']; ?></i>
 </h1>
 </center>
@@ -27,9 +29,10 @@
 	
      </div>
 
+
 	<div class="col-xs-6 col-md-6">
 
-	<img src="assets/img/trending.png" width="500">
+<a href="trending.php"><img src="assets/img/trending.png" width="500"></a>
 	
 	</div>
 

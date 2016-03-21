@@ -27,13 +27,13 @@ public $user_id;
 
 
 
-	public function create($username, $email, $password){
+	public function create($username, $email, $password, $permission){
 		if (!valid($username) || !valid($email) || !valid($password)) {
 			return false;
 		} else {
 
 			$pdo = Database::connect();
-			$sql = "INSERT INTO users (username,email,password) values(?, ?, ?)";
+			$sql = "INSERT INTO users (username,email,password,permission) values(?, ?, ?, 2)";
 			$q = $pdo->prepare($sql);
 			$q->execute(array($username,$email,$password));
 

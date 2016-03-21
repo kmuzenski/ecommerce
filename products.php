@@ -10,17 +10,34 @@ require_once('crud.php');
  <body>
 <?php  require_once('nav.php'); ?>
 <br><br><br><br><br><br>
-  
+ 
+
+<?php
+/*	$imgID = $_GET['id'];
+	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$sql = 'SELECT img_link FROM images WHERE product_FK = ?';
+	$q = $pdo->prepare($sql);
+	$q->execute(array($imgID);
+	$query = $q->fetchAll(PDO::FETCH_ASSOC);
+
+	foreach ($query as $image) {
+	echo '<img src="' . $image['img_link'] . '">';
+	}
+*/
+?>
+
+ 
  <div class="container">
-      
-      <div class="row">
+<div class="row">
+
+ 
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
               <th>Name</th>
               <th>Description</th>
               <th>Price</th>
-              <th>Action</th>
+		 <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -40,6 +57,9 @@ require_once('crud.php');
                   echo '<td>'.$row['name'].'</td>'; 
                   echo '<td>'.$row['description'].'</td>'; 
                   echo '<td>'.$row['price'].'</td>';
+
+	
+
                   echo '<td><input type="submit" value="Add to Cart"></td>';
                   echo '</form>';
                   echo '</tr>';
