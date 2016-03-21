@@ -12,21 +12,13 @@ require_once('crud.php');
 <?php require_once('nav.php'); ?>
 <br><br><br><br><br><br>
 
-
+<center>
 <h1>#TRENDING PRODUCTS</h1>
 
-<div class="container">
-<div class="row">
-<div class="col-md-6">
-<img src="assets/img/eyetrio.jpg" width="500">
-</div>
+<br><br>
 
-<div class="col-md-6">
-<img src ="assets/img/lippy.jpg" width="500">
-</div>
-</div>
-</div>
-
+<img src ="assets/img/lippybright.jpg" width="500">
+</center>
 <br><br><br>
 
 <?php require_once('footer.php'); ?>
