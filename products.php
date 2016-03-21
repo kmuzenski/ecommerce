@@ -13,16 +13,20 @@ require_once('crud.php');
  
 
 <?php
-/*	$imgID = $_GET['id'];
+/*try  {	$pdo = Database::connect();
+	$imgID = $_GET['id'];
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$sql = 'SELECT img_link FROM images WHERE product_FK = ?';
+	$sql = 'SELECT * FROM images WHERE product_FK = ?';
 	$q = $pdo->prepare($sql);
 	$q->execute(array($imgID);
 	$query = $q->fetchAll(PDO::FETCH_ASSOC);
 
 	foreach ($query as $image) {
 	echo '<img src="' . $image['img_link'] . '">';
-	}
+}	} catch (PDOException $e) {
+	echo $e->getMessage();
+}
+Database::disconnect();
 */
 ?>
 

@@ -10,39 +10,39 @@
 <?php require_once('nav.php'); ?>
 <br><br><br><br><br><br>
 <center>
-<img src="assets/img/banner.png" width="500">
 
-<br><br><br><br>
+<img alt="lipslogo" title="liplogo" src="assets/img/banner.png" width="500">
 
-<h1>Welcome Home &nbsp;<i><?php echo $_SESSION['username']; ?></i>
-</h1>
+
 </center>
 <br><br><br><br>
 
+
+
+	
 <div class="container">
-
-    <div class="row">
-
-    <div class="col-md-6">
-
-<a href="newProducts.php"><img src="assets/img/whatsnew.png" width="500"></a>
-	
-     </div>
+<div class="row">
 
 
-	<div class="col-md-6">
-
-<a href="trending.php"><img src="assets/img/trending.png" width="500"></a>
-	
+<div class="col-md-6">
+<center>
+<h3>See what everyone is talking about!</h3><br>
+<a href="trending.php"><img alt="trending" title="trending" :wq
+src="assets/img/trending.png" width="500"></a>
+	</center>
 	</div>
 
-
+<div class="col-md-6">
+<center>
+<h3>Find your colour!</h3><br>
+<img alt="lipstickAD" title="lipsticks" src="assets/img/afterDark.png" width="500">
+</center>
 </div>
 
+
+
 </div>
-
-
-
+</div>
 
 
 

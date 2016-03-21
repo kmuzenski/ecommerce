@@ -7,11 +7,10 @@
     $category = new CategoryCrud($_SESSION['uid']);
     $response = $category->delete($_POST['id']);
     if($response){
-    //  echo "success";
+      //echo "success";
 	header("Location: admin.php");
-    } else {
+    echo "category deleted";
+	} else {
       echo "failure";
     }
-  } else {
-	echo "didnt get param";
-} 
+  } 

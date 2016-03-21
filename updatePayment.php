@@ -8,14 +8,14 @@
     if ( !empty($_POST)) {
       // keep track post values
       
-      $id = $_POST['id'];
       $name = $_POST['name'];
       $number = $_POST['number'];
       $expiration = $_POST['expiration'];
       $securitycode = $_POST['securitycode'];
       $type = $_POST['type'];
       $address_FK = $_POST['address_FK'];
-      
+     	$id = $_POST['id']; 
+	
 	$creditcard = new UserCredit($_SESSION['uid']);
       $response = $creditcard->update($name,$number,$expiration,$securitycode,$type,$address_FK,$id);
   

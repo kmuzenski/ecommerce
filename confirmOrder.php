@@ -4,7 +4,7 @@
 
 
 $order = new Cart($_SESSION['uid']);
-$order->checkout();
+$order->checkout($_SESSION['cart_id']);
 
 
 header("Location: confirmedOrder.php");

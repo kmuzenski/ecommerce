@@ -21,18 +21,22 @@
 <br><br><br><br>
 
 
-
-
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
 <h3>Customer Information</h3>
+</tr>
+</thead>
+
 <br><br>
+<tbody>
 <?php
 
 	$user = new UserCrud($_SESSION['uid']);
-	$info = $user->read(); 
-	echo '<form method="POST" action="confirmOrder.php">';
-	echo '<input type="hidden" name="id" value="' . $info['id'] . '">';
-	echo ''.$info['username'].'';
-	echo ''.$info['email'].'';	
+	foreach ($user->read() as $row) { 
+	echo '<p>Name: </p>'.$row['username'].'<br>';
+	echo '<p>Address: </p>'.$row['email'].'';	
+}
 
 ?>
 
@@ -53,15 +57,37 @@
 	}
 	echo "</select>";
 ?>
+<br><br>
+<h3> Payment Information</h3>
+<br><br>
+
+<?php
+	echo '<form method="POST" action="confirmOrder.php">';
+	echo '<input type="hidden" name="id" value="' . $_SESSION['id'] . '">';
+	 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT `creditcard`.`id`, `creditcard`.`name` FROM `creditcard` WHERE `creditcard`.`id` IN (SELECT `user_creditcard`.`credit_FK` FROM `user_creditcard` WHERE `user_creditcard`.`user_FK` = ?)";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($_SESSION['uid']));
+        $credit = $q->fetchAll(PDO::FETCH_ASSOC);
+        echo "<select method ='POST' name='credit_FK'>";
+        foreach ($credit as $row) {
+        echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+        }
+        echo "</select>";
+
+?>
+<br><br>
 
 
 <?php
+echo "<br>";
 echo '<input type="submit" value="Confirm Order">';
 echo '</form>';
 ?>
 </div>
 </div>
 
+<br><br>
 <?php require_once('footer.php');
 ?>
 

@@ -160,7 +160,7 @@
                 echo '<tr>';
                 echo '<form method="POST" action="updatePayment.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
-               echo '<td><input type="text" name="name" value="'.$row['name'].'"></td>';
+               echo '<td><input type="text" name="name" value="'.$row['name'] .'"></td>';
                echo'<td><input type="text" name="number" value="'.$row['number'].'"></td>';
                 echo '<td><input type="text" name="expiration" value="'.$row['expiration'].'"></td>';
                 echo '<td><input type="text" name="securitycode" value="'.$row['securitycode'].'"></td>';

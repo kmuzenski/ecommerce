@@ -506,6 +506,7 @@ class CategoryCrud {
         $q->execute(array($category_id));
         Database::disconnect();
         return true;
+	
 	}
 }
 
@@ -624,18 +625,20 @@ public function deleteFromCart($productTransactionID) {
 
 
 
-public function Checkout() {
-/*	try {
+public function Checkout($cart_id) {
+	try {
 	$pdo = Database::connect();
+	
 	$sql = "UPDATE transaction SET cart = ? WHERE id = ?";
 	$q = $pdo->prepare($sql);
-	$q->execute(array(0,$cart_id);
-	Database::disconnect();
+//	$q->execute(array(0,$cart_id);
+//	Database::disconnect();
 	} catch (PDOException $e) {
 	echo $e->getMessage();
 	}
-	return $this->createCart();
-*/
+	Database::disconnect();
+//	return $this->createCart();
+
 }
 
 
