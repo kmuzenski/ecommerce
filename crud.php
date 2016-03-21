@@ -376,11 +376,14 @@ class BinCrud {
 
 
 //PRODUCT CRUD
-class ProductCrud {	
+class ProductCrud {
+
+
 	public $user_id;
 	public function __construct($user_id){
 		$this->user_id = $user_id;
 	}
+	
 	public function create($name,$description,$price,$bin_FK,$category_FK){
 		if (!valid($name) || !valid($description) || !valid($price) || !valid($bin_FK) || !valid($category_FK)) {
 			return false;
@@ -432,15 +435,19 @@ class ProductCrud {
 		}
 	}
 	public function delete($product_id){
-        $pdo = Database::connect();
-        $sql = "DELETE FROM product WHERE id = ?"; 
+try {	 $pdo = Database::connect();
+        $sql = "DELETE FROM product_bin WHERE product_FK = ?"; 
         $q = $pdo->prepare($sql);
         $q->execute(array($product_id));
         Database::disconnect();
         return true;
+	} catch (PDOException $e) {
+	echo $e->getMessage();
+	return false;
 	}
+	
 }
-
+}
 
 
 
