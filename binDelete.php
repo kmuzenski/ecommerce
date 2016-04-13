@@ -5,7 +5,7 @@
   require_once('crud.php');
  
   if ( !empty($_POST['id']) && isset($_POST['id'])) {
-    $bin = new BinCrud($_SESSION['uid']);
+    $bin = new BinCrud();
     $response = $bin->delete($_POST['id']);
     if($response){
    	header("Location: admin.php");
