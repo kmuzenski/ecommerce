@@ -10,6 +10,7 @@
 <?php require_once('nav.php'); ?>
 <br><br><br><br><br><br>
 <p>hello world</p>
+<br><br><br>
 <center>
 
 <img alt="lipslogo" title="lips" src="assets/img/banner.png" width="500">
