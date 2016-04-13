@@ -29,7 +29,7 @@
 <center>
 <h3>See what everyone is talking about!</h3><br>
 <a href="trending.php"><img alt="trending" title="trending" :wq
-src="assets/img/trending.png" width="500"></a>
+src="assets/images/treding.png" width="500"></a>
 	</center>
 	</div>
 
