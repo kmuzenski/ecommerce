@@ -9,6 +9,7 @@
 
 <?php require_once('nav.php'); ?>
 <br><br><br><br><br><br>
+<p>hello world</p>
 <center>
 
 <img alt="lipslogo" title="lips" src="assets/img/banner.png" width="500">
@@ -34,7 +35,7 @@ src="assets/img/trending.png" width="500"></a>
 
 <div class="col-md-6">
 <center>
-<h3>Find your colour!</h3><br>
+<h3>Find </h3><br>
 <img alt="lipstickAD" title="lipstick" src="assets/img/afterDark.png" width="500">
 </center>
 </div>
@@ -44,7 +45,8 @@ src="assets/img/trending.png" width="500"></a>
 </div>
 </div>
 <br><br><br><br>
-<p>hello world</p>
+
+
 <form>
 <input type="text" size="30" onkeyup="showResult(this.value)">
 <div id="livesearch"></div>
