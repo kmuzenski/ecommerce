@@ -35,7 +35,7 @@ src="assets/img/trending.png" width="500"></a>
 
 <div class="col-md-6">
 <center>
-<h3>Find </h3><br>
+<h3>Find your colour!</h3><br>
 <img alt="lipstickAD" title="lipstick" src="assets/img/afterDark.png" width="500">
 </center>
 </div>
