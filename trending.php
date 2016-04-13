@@ -17,7 +17,7 @@ require_once('crud.php');
 
 <br><br>
 
-<img src ="assets/img/lippybright.jpg" width="500">
+<img src ="assets/img/lippybright.jpg" title="lipstick" width="500" >
 </center>
 <br><br><br>
 
