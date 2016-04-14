@@ -26,11 +26,15 @@ require_once('crud.php');
 </center>
 </div>
 
+<<<<<<< HEAD
 <div class="col-md-6">
 <center>
 <h3>SPRING PALLETTES</h3>
 <br>
 <img alt="brighteyepalette" title="brighteyeshadow" src="assets/img/brighteyepalette.png" width="500">
+=======
+<img src ="assets/img/lippybright.jpg" title="lipstick" width="500" >
+>>>>>>> 7df0b68ea129b6899b9562844fcdb21136364250
 </center>
 <br><br><br>
 </div>
