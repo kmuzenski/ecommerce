@@ -57,9 +57,7 @@ src="assets/img/trending.png" width="500"></a>
 <br><br><br><br><br>
 
 <?php require_once('footer.php'); ?>
-<script src="search.js">
-
-</script>
+<script src="search.js"></script>
 
   </body>
 </html>
