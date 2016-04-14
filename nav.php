@@ -87,7 +87,7 @@
 			<li><a href="admin.php">Admin</a></li>
 		<?php } ?>
 
-
+		<br>
 		<li><p>Search:</p></li>
 		<li>
 
