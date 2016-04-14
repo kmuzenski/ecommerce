@@ -13,4 +13,14 @@
 <title>lipstick</title>
 <url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=9</url>
 </link>
+
+<link>
+<title>login</title>
+<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/loginpage.php</url>
+</link>
+
+<link>
+<title>trending</title>
+<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/trending.php</url>
+</link>
 </pages>
