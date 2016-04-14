@@ -9,7 +9,7 @@
 
 <?php require_once('nav.php'); ?>
 <br><br><br><br><br><br>
-<p>hello world</p>
+
 <br><br><br>
 <center>
 
@@ -30,7 +30,7 @@
 <center>
 <h3>See what everyone is talking about!</h3><br>
 <a href="trending.php"><img alt="trending" title="trending" :wq
-src="assets/images/treding.png" width="500"></a>
+src="assets/img/treding.png" width="500"></a>
 	</center>
 	</div>
 
@@ -48,44 +48,12 @@ src="assets/images/treding.png" width="500"></a>
 <br><br><br><br>
 
 
-<form>
-<input type="text" size="30" onkeyup="showResult(this.value)">
-<div id="livesearch"></div>
-</form>
+
 
 
 <br><br><br><br><br>
 
 <?php require_once('footer.php'); ?>
-<script>
-function showResult(str) {
-	if (str.length==0) {
-	document.getElementById("livesearch").innerHTML="";
-	document.getElementById("livesearch").style.border="0px";
-	return;
-	}
 
-if (window.XMLHttpRequest) {
-//IE7 Ffox chrome safari opera
-
-	xmlhttp = new XMLHttpRequest();
-
-} else {
-//IE - 6
-
-	xmlhttp = new ActiveXObject ("Microsoft.XMLHTTP");
-}
-
-xmlhttp.onreadystatechange = function() {
-	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-	document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
-	document.getElementById("livesearch").style.border="1px solid #A5ACB2";
-	}
-}
-xmlhttp.open("GET","livesearch.php?q="+str,true);
-xmlhttp.send();
-
-}
-</script>
   </body>
 </html>
