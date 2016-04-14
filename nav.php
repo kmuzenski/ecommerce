@@ -93,7 +93,7 @@
       	</div>
      
 
-     <div align="right">
+     
       	<script>
 function showResult(str) {
 	if (str.length==0) {
@@ -125,7 +125,7 @@ xmlhttp.send();
 }</script>
 <div class="contianer">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-4" align="right">
 <p>Search</p>
 
 <form>
@@ -136,5 +136,5 @@ xmlhttp.send();
 </div>
 </div>
 
-</div>
+
     	</nav>
