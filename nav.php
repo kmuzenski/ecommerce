@@ -87,6 +87,14 @@
 			<li><a href="admin.php">Admin</a></li>
 		<?php } ?>
 
+
+		<li><p>Search</p>
+
+<form>
+<input type="text" size="30" onkeyup="showResult(this.value)">
+<div id="livesearch"></div>
+</form>
+</li>
 	   </ul>
 			
         	</div>
@@ -124,12 +132,7 @@ xmlhttp.send();
 
 }</script>
 
-<p>Search</p>
 
-<form>
-<input type="text" size="30" onkeyup="showResult(this.value)">
-<div id="livesearch"></div>
-</form>
 
 
 
