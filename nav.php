@@ -17,6 +17,8 @@
 	 <div id="navbar" class="collapse navbar-collapse">
           	
 		<ul class="nav navbar-nav">
+		<div class="row">
+			<div class="col-md-8">
             
 		<li><a  href="index.php">Home</a></li>
 
@@ -91,6 +93,9 @@
 			</ul>
         	</div>
       	</div>
+      </div>
+
+      <div class="col-md-4">
       	<script>
 function showResult(str) {
 	if (str.length==0) {
@@ -124,5 +129,7 @@ xmlhttp.send();
 <input type="text" size="30" onkeyup="showResult(this.value)">
 <div id="livesearch"></div>
 </form>
-    
+    </div>
+
+</div>
     	</nav>
