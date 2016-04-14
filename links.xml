@@ -1,8 +1,48 @@
 <pages>
+
+<link>
+<title>Beauty Tools</title>
+<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=16</url>
+</link>
+
+
 <link>
 <title>eyeshadow</title>
 <url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=5</url>
 </link>
+
+<link>
+<title>eyeliner</title>
+<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=12</url>
+</link>
+
+<link>
+<title>hair</title>
+<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=10</url>
+</link>
+
+
+<link>
+<title>lipgloss</title>
+<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=13</url>
+</link>
+
+<link>
+<title>lipstick</title>
+<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=9</url>
+</link>
+
+<link>
+<title>lotion</title>
+<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=14</url>
+</link>
+
+<link>
+<title>mascara</title>
+<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=11</url>
+</link>
+
+
 
 <link>
 <title>nail polish</title>
@@ -10,9 +50,11 @@
 </link>
 
 <link>
-<title>lipstick</title>
-<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=9</url>
+<title>perfume</title>
+<url>http://ec2-52-32-48-99.us-west-2.compute.amazonaws.com/ecommerce-/category.php?id=15</url>
 </link>
+
+
 
 <link>
 <title>login</title>
