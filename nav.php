@@ -87,14 +87,13 @@
 			<li><a href="admin.php">Admin</a></li>
 		<?php } ?>
 
-		<br>
+
 		<li><p>Search:</p></li>
 		<li>
 
-<form>
-<input type="text" size="30" onkeyup="showResult(this.value)">
+
+<input type="text" size="30" onkeyup="showResult(this.value)" class="form-control">
 <div id="livesearch"></div>
-</form>
 </li>
 	   </ul>
 			
