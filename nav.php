@@ -87,13 +87,13 @@
 			<li><a href="admin.php">Admin</a></li>
 		<?php } ?>
 
-	   
+	   </ul>
 			
         	</div>
       	</div>
      
 
-<li>      
+     <div align="right">
       	<script>
 function showResult(str) {
 	if (str.length==0) {
@@ -130,7 +130,6 @@ xmlhttp.send();
 <input type="text" size="30" onkeyup="showResult(this.value)">
 <div id="livesearch"></div>
 </form>
-</li>
-</ul>
 
+</div>
     	</nav>
