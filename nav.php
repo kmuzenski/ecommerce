@@ -123,7 +123,8 @@ xmlhttp.open("GET","livesearch.php?q="+str,true);
 xmlhttp.send();
 
 }</script>
-	    	<form>
+<p>Search</p>
+<form>
 <input type="text" size="30" onkeyup="showResult(this.value)">
 <div id="livesearch"></div>
 </form>
