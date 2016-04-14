@@ -88,12 +88,12 @@
 		<?php } ?>
 
 	   
-			</ul>
+			
         	</div>
       	</div>
      
 
-<div align="right">      
+<li>      
       	<script>
 function showResult(str) {
 	if (str.length==0) {
@@ -123,16 +123,14 @@ xmlhttp.open("GET","livesearch.php?q="+str,true);
 xmlhttp.send();
 
 }</script>
-<div class="container">
-	<div class="row">
-		<div class="col-md-2">
+
 <p>Search</p>
-</div>
-<div class="col-md-2">
+
 <form>
 <input type="text" size="30" onkeyup="showResult(this.value)">
 <div id="livesearch"></div>
 </form>
-</div>
-</div>
+</li>
+</ul>
+
     	</nav>
