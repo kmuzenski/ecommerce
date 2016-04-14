@@ -123,13 +123,18 @@ xmlhttp.open("GET","livesearch.php?q="+str,true);
 xmlhttp.send();
 
 }</script>
-
+<div class="contianer">
+	<div class="row">
+		<div class="col-md-4">
 <p>Search</p>
 
 <form>
 <input type="text" size="30" onkeyup="showResult(this.value)">
 <div id="livesearch"></div>
 </form>
+</div>
+</div>
+</div>
 
 </div>
     	</nav>
