@@ -86,12 +86,7 @@
 			<li><a href="update.php">Update</a></li>	
 			<li><a href="admin.php">Admin</a></li>
 		<?php } ?>
-		<li>
-			    	<form>
-<input type="text" size="30" onkeyup="showResult(this.value)">
-<div id="livesearch"></div>
-</form>
-</li>
+
 	   
 			</ul>
         	</div>
