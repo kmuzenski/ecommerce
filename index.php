@@ -14,7 +14,9 @@
 <br><br><br><br><br><br>
 
 
-<input type="text" name="typeahead">
+<input type="text" class="livesearch" id="livesearch" placeholder="search products" /> 
+<div id="response"></div>
+</div>
 
 <center>
 
@@ -60,18 +62,8 @@ src="assets/img/trending.png" width="500"></a>
 <br><br><br><br><br>
 
 <?php require_once('footer.php'); ?>
-<script src="typeahead.min.js"></script>
-<script>
-$(document).ready(function(){
-	$('input.typeahead').typeahead({
-		name: 'typeahead',
-		remote: 'search.php?key=%QUERY',
-		limit: 10
 
-	});
 
-});
-</script>
 
   </body>
 </html>

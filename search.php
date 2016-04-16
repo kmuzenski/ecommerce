@@ -1,17 +1,22 @@
 <?php
 
 require_once('database.php');
-require_once('session.php');
 
-	$key = $_GET['key'];
-	$array = array();
+
+	try {
 	$pdo = Database::connect();
-	$query = "SELECT * FROM product WHERE <name> LIKE '%{key}%' ";
+	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-	while ($row = mysql_fetch_assoc($query)) {
-		$array[] = $row['title'];
+	$query = "SELECT * FROM product WHERE name LIKE '%{key}%' ";
+	$q = $pdo->prepare($query);
+	$q->execute();
+	$results = $q->fetch(PDO:FETCH_ASSOC);
+
+	echo $results;
+
+
+	} catch (PDOException $e) {
+		echo $e->getMessage();
 	}
-
-	echo json_encode($array);
 
 	?>
