@@ -13,7 +13,7 @@
 <?php require_once('nav.php'); ?>
 <br><br><br><br><br><br>
 
-<?php require_once('search.php'); ?>
+
 <input type="text" class="livesearch" id="livesearch" placeholder="search products" /> 
 <div id="response"></div>
 </div>
