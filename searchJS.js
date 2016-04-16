@@ -15,7 +15,7 @@ $(document).ready(function() {
 
 			$.each($.parseJSON(results), function(key, value) {
 				$('#response').append('<div><p>' + value.name + '</p></div>');
-					console.log($('#response').val();
+					console.log($('#response').val());
 
 			});
 
