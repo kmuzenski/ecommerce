@@ -60,7 +60,7 @@ src="assets/img/trending.png" width="500"></a>
 <br><br><br><br><br>
 
 <?php require_once('footer.php'); ?>
-
+<script src="typeahead.min.js"></script>
 <script>
 $(document).ready(function(){
 	$('input.typeahead').typeahead({
