@@ -89,39 +89,10 @@
 		<?php } ?>
 
 
-		<li><p>Search:</p></li>
-		<li>
+		
 
 
-<input type="text" size="30" onkeyup="showResult(this.value)" class="form-control">
-<div id="livesearch"></div>
-</li>
-	   </ul>
-			
-        	</div>
-      	</div>
-     
 
-     
-<script>
-$document.ready(function() {
-
-
-$("#livesearch".on('input', function() {
-	$.AJAX({
-		method: "POST",
-		dataytype: "JSON",
-		url : "livesearch.php",
-		data: { terms: $("#livesearch").val() },
-		success : function(results) {
-			$.each()
-		}
-
-	})
-
-}))
-})
-</script>
 
 
 
