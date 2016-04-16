@@ -32,8 +32,7 @@ require_once('crud.php');
 <h3>SPRING PALLETTES</h3>
 <br>
 <img alt="brighteyepalette" title="brighteyeshadow" src="assets/img/brighteyepalette.png" width="500">
-=======
-<img src ="assets/img/lippybright.jpg" title="lipstick" width="500" >
+
 
 </center>
 <br><br><br>

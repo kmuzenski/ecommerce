@@ -1,8 +1,7 @@
-
 <nav class="navbar navbar-default navbar-fixed-top">
       	
 	<div class="container">
-    <div class="navbar-header">
+    	<div class="navbar-header">
           
 		<button type="button" class="navbar-toggle btn-custom" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
          	<span class="sr-only">Toggle navigation</span>
@@ -10,8 +9,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
+         
          <a class="navbar-brand" href="index.php"><img src="assets/img/liplogo.png" width="50"></a>		
-     </div>
+     
+     	</div>
 
          
 	 <div id="navbar" class="collapse navbar-collapse">
@@ -102,38 +103,28 @@
      
 
      
-      	<script>
-function showResult(str) {
-	if (str.length==0) {
-	document.getElementById("livesearch").innerHTML="";
-	document.getElementById("livesearch").style.border="0px";
-	return;
-	}
+<script>
+$document.ready(function() {
 
-if (window.XMLHttpRequest) {
-//IE7 Ffox chrome safari opera
 
-	xmlhttp = new XMLHttpRequest();
+$("#livesearch".on('input', function() {
+	$.AJAX({
+		method: "POST",
+		dataytype: "JSON",
+		url : "livesearch.php",
+		data: { terms: $("#livesearch").val() },
+		success : function(results) {
+			$.each()
+		}
 
-} else {
-//IE - 6
+	})
 
-	xmlhttp = new ActiveXObject ("Microsoft.XMLHTTP");
-}
-
-xmlhttp.onreadystatechange = function() {
-	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-	document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
-	document.getElementById("livesearch").style.border="1px solid #A5ACB2";
-	}
-}
-xmlhttp.open("GET","livesearch.php?q="+str,true);
-xmlhttp.send();
-
-}</script>
+}))
+})
+</script>
 
 
 
 
 
-    	</nav>
+ </nav>
