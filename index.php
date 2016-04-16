@@ -14,6 +14,8 @@
 <br><br><br><br><br><br>
 
 
+<input type="text" name="typeahead">
+
 <center>
 
 <img alt="lipslogo" title="lips" src="assets/img/banner.png" width="500">
@@ -59,6 +61,17 @@ src="assets/img/trending.png" width="500"></a>
 
 <?php require_once('footer.php'); ?>
 
+<script>
+$(document).ready(function(){
+	$('input.typeahead').typeahead({
+		name: 'typeahead',
+		remote: 'search.php?key=%QUERY',
+		limit: 10
+
+	});
+
+});
+</script>
 
   </body>
 </html>
