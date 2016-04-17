@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$("#livesearch").on('input', function() {
+		
 
 	return $.ajax({
 		type: "POST",
