@@ -1,5 +1,7 @@
 $(document).ready(function() {
 	$("#livesearch").on('input', function() {
+		$('#livesearch').html("");
+	
 		
 
 	return $.ajax({
@@ -12,11 +14,11 @@ $(document).ready(function() {
 		success : function (results) {
 
 
-		$('#response').html("");
+		$('#results').html("");
 
 			$.each($.parseJSON(results), function(key, value) {
-				$('#response').append('<div><p>' + value.name + '</p></div>');
-					console.log($('#response').val());
+				$('#results').append('<div><p>' + value.name + '</p></div>');
+					console.log($('#results').val());
 
 			});
 
