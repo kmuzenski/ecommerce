@@ -65,9 +65,7 @@ src="assets/img/trending.png" width="500"></a>
 
 
 <br><br><br><br><br>
-
-<?php require_once('footer.php'); ?>
-<script type="text/javascript">
+<script>
 $(function(){
 $(".search").keyup(function() 
 { 
@@ -105,6 +103,9 @@ $('#searchid').click(function(){
 });
 });
 </script>
+
+<?php require_once('footer.php'); ?>
+
 
 
 
