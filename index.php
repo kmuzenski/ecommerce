@@ -16,9 +16,12 @@
 
 
 <div class="content">
-<input type="text" class="search" id="searchid" placeholder="Search Products" /> 
+<input type="text" class="search" id="searchid" placeholder="Search Products"> 
 <div id="result"></div>
 </div>
+
+
+
 
 <center>
 
@@ -69,8 +72,8 @@ $(function(){
 $(".search").keyup(function() 
 { 
 var searchid = $(this).val();
-var dataString = \\ search= \\ + searchid;
-if(searchid!= \\ \\)
+var dataString =  searchid;
+if(searchid!= empty)
 {
     $.ajax({
     type: "POST",
@@ -87,9 +90,9 @@ if(searchid!= \\ \\)
  
 jQuery("#result").on("click",function(e){ 
     var $clicked = $(e.target);
-    var $name = $clicked.find(\\.name\\).html();
+    var $name = $clicked.find(.name).html();
     var decoded = $("<div>").html($name).text();
-    $(\\'#searchid'\\).val(decoded);
+    $('#searchid').val(decoded);
 });
 jQuery(document).live("click", function(e) { 
     var $clicked = $(e.target);
@@ -97,7 +100,7 @@ jQuery(document).live("click", function(e) {
     jQuery("#result").fadeOut(); 
     }
 });
-$(\'#searchid'\\).click(function(){
+$('#searchid').click(function(){
     jQuery("#result").fadeIn();
 });
 });
