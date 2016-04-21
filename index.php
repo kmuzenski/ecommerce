@@ -88,20 +88,20 @@ if(searchid!= empty)
 }return false;    
 });
  
-jQuery("#result").on("click",function(e){ 
+("#result").on("click",function(e){ 
     var $clicked = $(e.target);
     var $name = $clicked.find(.name).html();
     var decoded = $("<div>").html($name).text();
     $('#searchid').val(decoded);
 });
-jQuery(document).live("click", function(e) { 
+(document).live("click", function(e) { 
     var $clicked = $(e.target);
     if (! $clicked.hasClass("search")){
-    jQuery("#result").fadeOut(); 
+    ("#result").fadeOut(); 
     }
 });
 $('#searchid').click(function(){
-    jQuery("#result").fadeIn();
+    ("#result").fadeIn();
 });
 });
 </script>
