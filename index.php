@@ -19,6 +19,8 @@
 <input type="text" class="search" id="searchid" placeholder="Search Products"> 
 <div id="searchResult"></div>
 </div>
+<div id="hidden">
+</div>
 
 
 
@@ -36,8 +38,7 @@
 		<div class="col-md-6">
 		<center>
 		<h3>See what everyone is talking about!</h3><br>
-		<a href="trending.php"><img alt="trending" title="trending" :wq
-src="assets/img/trending.png" width="500"></a>
+		<a href="trending.php"><img alt="trending" title="trending" src="assets/img/trending.png" width="500"></a>
 		</center>
 		</div>
 
@@ -58,48 +59,18 @@ src="assets/img/trending.png" width="500"></a>
 
 
 
-
 <br><br><br><br><br>
+<?php require_once('footer.php'); ?>
+<script src="searchJS.js"></script>
 <script>
-$(function(){
-$(".search").keyup(function() 
-{ 
-var searchid = $(this).val();
-var dataString =  searchid;
-if(searchid!= empty)
-{
-    $.ajax({
-    type: "POST",
-    url: "result.php",
-    data: dataString,
-    cache: false,
-    success: function(html)
-    {
-    $("#result").html(html).show();
-    }
-    });
-}return false;    
-});
- 
-("#result").on("click",function(e){ 
-    var $clicked = $(e.target);
-    var $name = $clicked.find(.name).html();
-    var decoded = $("<div>").html($name).text();
-    $('#searchid').val(decoded);
-});
-(document).live("click", function(e) { 
-    var $clicked = $(e.target);
-    if (! $clicked.hasClass("search")){
-    ("#result").fadeOut(); 
-    }
-});
-$('#searchid').click(function(){
-    ("#result").fadeIn();
-});
+$("#results").keyup(function(){
+    if($(this).val()) {
+        $("#hidden").hide();
+    } else {
+        $("#hidden").show();
+    }   
 });
 </script>
-
-<?php require_once('footer.php'); ?>
 
 
 
