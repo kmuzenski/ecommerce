@@ -1,43 +1,42 @@
 $(document).ready(function() {
-	$("#livesearch").on('input', function() {
-		$('#livesearch').html("");
-	
-		
+	$("#results").on('input', function() {
+		$('#searchResults').html("");
+		var searchPhrase = $("#results").val();
+
+	if (searchPhrase != null && searchPhrase != ""){
+
 
 	return $.ajax({
 		type: "POST",
 		datatype : "json",
-		url: "search.php",
-		data: { terms: $("#livesearch").val() },
+		url: "productSearch.php",
+		data: { terms: searchPhrase },
 
 
-		success : function (results) {
+		success : function (r) {
+			var item = $.parseJSON(r);
 
+			if (item.length > 0) {
+				$.each(item, function(key, value) {
+					$('#searchResults').append('<div class="col-xs-12"><p>' + value.product + '</p></div>');
 
-		$('#results').html("");
+				});
 
-			$.each($.parseJSON(results), function(key, value) {
-				$('#results').append('<div><p>' + value.name + '</p></div>');
-					console.log($('#results').val());
+			} else {
+				$('#searchResults').append('<div class="col-xs-12"><p>No Results</p></div>');
 
-			});
+			}
 
+	}
 
-		}
+	});
+	}
+});
 
-
-	})
-
-
-
-
-	})
-
-
+});
 
 
 
-})
 
 
 

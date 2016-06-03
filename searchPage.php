@@ -8,7 +8,7 @@ require_once('database.php');
 <?php require_once('header.php'); ?>
   <body>
 
-    <?php require_once('nav.php')?>
+    <?php require_once('nav.php'); ?>
     <br><br><br><br><br><br>
 
     <div class="container">
@@ -31,13 +31,14 @@ require_once('database.php');
            <tbody>
     
             <?php
-              $search = $_POST['srch-term'];
-              //$sqlSearch = '%' . $search . '%';
+              $search = $_POST['results'];
+             
             try {
               $pdo = Database::connect();
               $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $sql = "SELECT * FROM product WHERE name LIKE :search";
+              $sql = "SELECT * FROM `product` WHERE `product`.`product` LIKE :search";
               $q = $pdo->prepare($sql);
+              $q->bindValue(':search', '%', . $search .  '%');
            
               $q->execute();
               $matches = $q->fetchAll(PDO::FETCH_ASSOC);
