@@ -17,7 +17,7 @@
 
 <div class="content">
 <input type="text" class="search" id="searchid" placeholder="Search Products"> 
-<div id="result"></div>
+<div id="searchResult"></div>
 </div>
 
 
