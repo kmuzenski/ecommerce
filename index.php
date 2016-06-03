@@ -23,12 +23,7 @@
 
 
 
-<center>
 
-<img alt="lipslogo" title="lips" src="assets/img/banner.png" width="500">
-
-
-</center>
 <br><br><br><br>
 
 		
