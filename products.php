@@ -58,6 +58,7 @@ Database::disconnect();
                   echo '<tr>';
                   echo '<form method="POST" action="addToCart.php">';
                   echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                  echo '<td><img src="'.$row['image'].'"><br></td>';
                   echo '<td>'.$row['name'].'</td>'; 
                   echo '<td>'.$row['description'].'</td>'; 
                   echo '<td>'.$row['price'].'</td>';
