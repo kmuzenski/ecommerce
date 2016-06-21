@@ -42,12 +42,12 @@ Database::disconnect();
               <th>Name</th>
               <th>Description</th>
               <th>Price</th>
-		 <th>Action</th>
+		          <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <?php
-            if($loggedin) {
+           
                 $pdo = Database::connect();
                 $id = $_GET['id'];
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -70,7 +70,7 @@ Database::disconnect();
                   echo '</form>';
                   echo '</tr>';
                 }
-            }
+            
             Database::disconnect();
             ?>
           </tbody>
@@ -96,7 +96,6 @@ Database::disconnect();
 
 
 
- <?php require_once('footer.php');
-  ?>
-  </body>
+ <?php require_once('footer.php'); ?>
+</body>
 </html>
