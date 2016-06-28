@@ -16,17 +16,6 @@ require_once('crud.php');
 <div class="row">
 
  
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Price</th>
-		          <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
             <?php
            
                 $pdo = Database::connect();
@@ -58,8 +47,7 @@ require_once('crud.php');
             
             Database::disconnect();
             ?>
-          </tbody>
-        </table>
+       
       </div>
 
       <br>
