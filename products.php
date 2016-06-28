@@ -15,7 +15,7 @@ require_once('crud.php');
 <div class="container">
 <div class="row">
 
- 
+<div class="col-xs-12">
             <?php
            
                 $pdo = Database::connect();
@@ -48,20 +48,17 @@ require_once('crud.php');
             Database::disconnect();
             ?>
        
-      </div>
-
-      <br>
-      <br>
-      <br>
-      <br>
-    </div> <!-- /container -->
+</div>
+</div>
+     
+</div> <!-- /container -->
 
 
 
 
 <br>
 <br>
- <br>
+<br>
 <br>
 
 
