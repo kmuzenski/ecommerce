@@ -12,10 +12,10 @@
 <div class="container">
 <div class="row">
 
-<div class="col-md-2">
+<div class="col-xs-2">
 </div>
 
-<div class="col-md-6">
+<div class="col-xs-6">
     
               <?php 
               $category_id = $_GET['id'];
@@ -32,6 +32,8 @@
 
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
 
+                echo '<tbody>';
+
                 echo '<tr><td><img src="'.$row['image'].'" width="200" height="200"><br></td></tr>';
                 
                 echo '<tr><td>'.$row['price'].'</td></tr>';
@@ -44,17 +46,21 @@
                 echo '<td><input type="submit" value="Add to Cart"></td>';
               }
                 echo '</form>';
-                
+                echo '</tbody>';
+                echo '</table>';
               }
               ?>
-           </tbody>
-        </table>
-      </div>
-      <br>
-      <br>
-      <br>
-      <br>
-    </div><!-- /.container -->
+       
+
+
+
+</div>
+
+<div class="col-xs-2">
+</div>
+
+</div>
+</div><!-- /.container -->
 
 
 
