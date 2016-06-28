@@ -59,6 +59,10 @@ require_once('crud.php');
 
 
 
+<br>
+<br>
+ <br>
+<br>
 
 
 
@@ -68,7 +72,6 @@ require_once('crud.php');
 
 
 
-
- <?php require_once('footer.php'); ?>
+<?php require_once('footer.php'); ?>
 </body>
 </html>
