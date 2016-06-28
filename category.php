@@ -37,7 +37,7 @@
                 echo '<tr>';
                 echo '<form method="GET" action="products.php">'; 
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
-                echo '<td><img src="'.$row['image'].'" id="productImg"><br></td>';
+                echo '<td><img src="'.$row['image'].'" width="500"><br></td>';
                 echo '<td>'.$row['name'].'</td>'; 
                 echo '<td>'.$row['price'].'</td>';
 	  	          echo '<td><input type="submit" value="view product"></td>';
