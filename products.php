@@ -11,25 +11,6 @@ require_once('crud.php');
 <?php  require_once('nav.php'); ?>
 <br><br><br><br><br><br>
  
-
-<?php
-/*try  {	$pdo = Database::connect();
-	$imgID = $_GET['id'];
-	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$sql = 'SELECT * FROM images WHERE product_FK = ?';
-	$q = $pdo->prepare($sql);
-	$q->execute(array($imgID);
-	$query = $q->fetchAll(PDO::FETCH_ASSOC);
-
-	foreach ($query as $image) {
-	echo '<img src="' . $image['img_link'] . '">';
-}	} catch (PDOException $e) {
-	echo $e->getMessage();
-}
-Database::disconnect();
-*/
-?>
-
  
 <div class="container">
 <div class="row">
@@ -56,17 +37,23 @@ Database::disconnect();
                 $q->execute(array($id));
                 $query = $q->fetchAll(PDO::FETCH_ASSOC);
               foreach ($query as $row) {
-                  echo '<tr>';
+                  echo '<table class="table table-striped table-bordered">';
+
                   echo '<form method="POST" action="addToCart.php">';
                   echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
-                  echo '<td><img src="'.$row['image'].'" width="200" height="200"><br></td>';
-                  echo '<td>'.$row['name'].'</td>'; 
-                  echo '<td>'.$row['description'].'</td>'; 
-                  echo '<td>'.$row['price'].'</td>';
 
-                  echo '<td><input type="submit" value="Add to Cart"></td>';
+                  echo '<th>'.$row['name'].'</th>';
+                  echo '<tbody>';
+                  echo '<tr><td><img src="'.$row['image'].'" width="200" height="200"><br></td></tr>';
+                 
+                  echo '<tr><td>'.$row['description'].'</td></tr>'; 
+                  echo '<tr><td><p>Price:</p>'.$row['price'].'</td></td>';
+                  if ($loggedin) {
+                  echo '<tr><td><input type="submit" value="Add to Cart"></td></tr>';
                   echo '</form>';
-                  echo '</tr>';
+                  echo '</tbody></table>';
+                  }
+               
                 }
             
             Database::disconnect();
