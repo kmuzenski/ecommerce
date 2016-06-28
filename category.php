@@ -44,7 +44,9 @@
  		            echo '</form>';
                 echo '<form method="POST" action="addToCart.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                if ($loggedin) {
                 echo '<td><input type="submit" value="Add to Cart"></td>';
+              }
                 echo '</form>';
                 echo '</tr>';
               }
