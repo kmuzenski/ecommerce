@@ -31,7 +31,7 @@ Database::disconnect();
 ?>
 
  
- <div class="container">
+<div class="container">
 <div class="row">
 
  
@@ -63,8 +63,6 @@ Database::disconnect();
                   echo '<td>'.$row['name'].'</td>'; 
                   echo '<td>'.$row['description'].'</td>'; 
                   echo '<td>'.$row['price'].'</td>';
-
-	
 
                   echo '<td><input type="submit" value="Add to Cart"></td>';
                   echo '</form>';

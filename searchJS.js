@@ -19,7 +19,7 @@ $(document).ready(function() {
 			if (item.length > 0) {
 				$.each(item, function(key, value) {
 					$('#searchResults').append('<div class="col-xs-12"><p>' + value.product + '</p></div>');
-
+					
 				});
 
 			} else {

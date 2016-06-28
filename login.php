@@ -13,7 +13,7 @@ require_once('session.php');
 	$username=$_POST['username'];
 	$password=$_POST['password'];
 
-	  $pdo = Database::connect();
+	$pdo = Database::connect();
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$sql = "SELECT * FROM users WHERE username = ? AND password = ?";
 	$q = $pdo->prepare($sql);

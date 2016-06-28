@@ -22,7 +22,7 @@
 		<li><a  href="index.php">Home</a></li>
 
             					
-            	<?php 
+        <?php 
 		require_once('database.php');
 		$pdo = Database::connect();
          	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

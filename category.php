@@ -10,13 +10,16 @@
 
 
 <div class="container">
-      <div class="row">
+<div class="row">
+        
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
+              <th>Image</th>
               <th>Name</th>
               <th>Price</th>
-	      <th>Action</th>
+
+	            <th>Action</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -34,10 +37,11 @@
                 echo '<tr>';
                 echo '<form method="GET" action="products.php">'; 
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
+                echo '<td><img src="'.$row['image'].'"><br></td>';
                 echo '<td>'.$row['name'].'</td>'; 
                 echo '<td>'.$row['price'].'</td>';
-	  	echo '<td><input type="submit" value="view product"></td>';
- 		echo '</form>';
+	  	          echo '<td><input type="submit" value="view product"></td>';
+ 		            echo '</form>';
                 echo '<form method="POST" action="addToCart.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
                 echo '<td><input type="submit" value="Add to Cart"></td>';
