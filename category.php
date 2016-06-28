@@ -27,7 +27,7 @@
               $products = $q->fetchAll();
               foreach ($products as $row) {
                 echo '<table class="table table-striped table-bordered">';
-                echo '<tr><th><strong><td>'.$row['name'].'</td></th></tr>'; 
+                echo '<th><strong>'.$row['name'].'</th>'; 
                 echo '<form method="GET" action="products.php">'; 
 
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
@@ -36,7 +36,7 @@
 
                 echo '<tr><td><img src="'.$row['image'].'" width="200" height="200"><br></td></tr>';
                 
-                echo '<tr><td>'.$row['price'].'</td></tr>';
+                echo '<tr><td><p>Price:</p>'.$row['price'].'</td></tr>';
 	  	          echo '<tr><td><input type="submit" value="view product"></td></tr>';
  		            echo '</form>';
                 if ($loggedin) {
