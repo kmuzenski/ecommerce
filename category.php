@@ -26,7 +26,7 @@
               $q->execute(array($category_id));
               $products = $q->fetchAll();
               foreach ($products as $row) {
-                echo '<table>';
+                echo '<table class="table table-striped table-bordered">';
                 echo '<tr><th><strong><td>'.$row['name'].'</td></th></tr>'; 
                 echo '<form method="GET" action="products.php">'; 
 
