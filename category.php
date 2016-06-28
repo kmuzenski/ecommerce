@@ -11,19 +11,11 @@
 
 <div class="container">
 <div class="row">
-        
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Price</th>
 
-	            <th>Action</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-           <tbody>
+<div class="col-md-2">
+</div>
+
+<div class="col-md-6">
     
               <?php 
               $category_id = $_GET['id'];
@@ -34,21 +26,25 @@
               $q->execute(array($category_id));
               $products = $q->fetchAll();
               foreach ($products as $row) {
-                echo '<tr>';
+                echo '<table>';
+                echo '<tr><th><strong><td>'.$row['name'].'</td></th></tr>'; 
                 echo '<form method="GET" action="products.php">'; 
+
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
-                echo '<td><img src="'.$row['image'].'" width="200" height="200"><br></td>';
-                echo '<td>'.$row['name'].'</td>'; 
-                echo '<td>'.$row['price'].'</td>';
-	  	          echo '<td><input type="submit" value="view product"></td>';
+
+                echo '<tr><td><img src="'.$row['image'].'" width="200" height="200"><br></td></tr>';
+                
+                echo '<tr><td>'.$row['price'].'</td></tr>';
+	  	          echo '<tr><td><input type="submit" value="view product"></td></tr>';
  		            echo '</form>';
+                if ($loggedin) {
                 echo '<form method="POST" action="addToCart.php">';
                 echo '<input type="hidden" name="id" value="' . $row['id'] . '">';
-                if ($loggedin) {
+                
                 echo '<td><input type="submit" value="Add to Cart"></td>';
               }
                 echo '</form>';
-                echo '</tr>';
+                
               }
               ?>
            </tbody>
